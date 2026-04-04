@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Be Seen | The Course</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: black;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .apple-gradient {
+            background: linear-gradient(180deg, #ffffff 0%, #a1a1a1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .glow-effect {
+            box-shadow: 0 0 50px rgba(59, 130, 246, 0.2);
+        }
+    </style>
+</head>
+<body>
+
+    <section class="min-h-screen flex flex-col items-center justify-center px-6 text-center">
+        <div data-aos="fade-up" data-aos-duration="1000">
+            <h2 class="text-gray-500 text-lg md:text-xl font-medium mb-4 uppercase tracking-widest">The Reality</h2>
+            <h1 class="text-4xl md:text-7xl font-bold tracking-tight mb-12">
+                Get your store from <br>
+                <span class="text-gray-600">looking like this.</span>
+            </h1>
+            <img src="image_bd909f.jpg" alt="Zero Sales" class="w-full max-w-sm mx-auto rounded-[2.5rem] border border-white/10 shadow-2xl">
+        </div>
+    </section>
+
+    <section class="min-h-screen flex flex-col items-center justify-center px-6 text-center">
+        <div data-aos="fade-up" data-aos-duration="1000">
+            <h1 class="text-4xl md:text-7xl font-bold tracking-tight mb-12">
+                To <span class="bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent">this.</span>
+            </h1>
+            <div class="relative inline-block">
+                <div class="absolute -inset-4 bg-blue-500/20 blur-3xl rounded-full"></div>
+                <img src="image_bd90a4.jpg" alt="High Sales" class="relative w-full max-w-sm mx-auto rounded-[2.5rem] border border-white/20 shadow-2xl glow-effect">
+            </div>
+        </div>
+    </section>
+
+    <section class="min-h-[70vh] flex flex-col items-center justify-center px-6 text-center">
+        <div data-aos="zoom-in" data-aos-duration="1500">
+            <p class="text-3xl md:text-5xl font-semibold leading-tight max-w-4xl mx-auto text-gray-400">
+                "In a world of noise, we don't just build stores; <br> 
+                <span class="text-white">we build legacies that demand to <span class="italic underline decoration-blue-500">Be Seen.</span>"</span>
+            </p>
+        </div>
+    </section>
+
+    <section class="h-screen flex flex-col items-center justify-center text-center">
+        <div data-aos="fade-up" data-aos-duration="2000">
+            <h3 class="text-6xl md:text-9xl font-black tracking-tighter uppercase opacity-10 select-none">
+                Coming Soon
+            </h3>
+            <div class="mt-10">
+                <div class="h-1 w-20 bg-white mx-auto rounded-full animate-pulse"></div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            once: false, // Allows animations to repeat when scrolling back up
+            mirror: true
+        });
+    </script>
+</body>
+</html>
