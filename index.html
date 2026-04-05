@@ -5,203 +5,194 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Be Seen | The Standard</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
-        
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #000;
-            color: #fff;
-            scroll-behavior: smooth;
-            overflow-x: hidden;
-        }
-
-        .iphone-shadow {
-            box-shadow: 0 25px 50px -12px rgba(255, 255, 255, 0.1);
-        }
-
-        .apple-btn-shadow {
-            box-shadow: 0 4px 14px 0 rgba(255, 255, 255, 0.3);
-            transition: all 0.3s ease-out;
-        }
-        .apple-btn-shadow:hover {
-            box-shadow: 0 6px 20px rgba(255, 255, 255, 0.5);
-        }
-
-        .course-card {
-            transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s ease-out;
-        }
-        .course-card:hover {
-            transform: scale(1.03);
-            box-shadow: 0 0 40px rgba(255, 255, 255, 0.25);
-        }
-
+        body { font-family: 'Inter', sans-serif; background-color: #000; color: #fff; scroll-behavior: smooth; overflow-x: hidden; }
+        .iphone-shadow { box-shadow: 0 25px 50px -12px rgba(255, 255, 255, 0.1); }
+        .apple-btn-shadow { box-shadow: 0 4px 14px 0 rgba(255, 255, 255, 0.3); transition: all 0.3s ease-out; }
+        .apple-btn-shadow:hover { box-shadow: 0 6px 20px rgba(255, 255, 255, 0.5); }
+        .course-card { transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s ease-out; }
+        .course-card:hover { transform: scale(1.03); box-shadow: 0 0 40px rgba(255, 255, 255, 0.2); }
         .hidden-view { display: none; }
         .active-view { display: block; }
-        
-        .animate-pulse-slow {
-            animation: pulse-slow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-        }
-        @keyframes pulse-slow {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
+        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
     </style>
 </head>
 <body>
 
+    <div id="authModal" class="fixed inset-0 z-[100] flex items-center justify-center p-6 hidden">
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-md" onclick="toggleAuthModal()"></div>
+        <div class="relative glass w-full max-w-md rounded-[2.5rem] p-10 text-center iphone-shadow">
+            <h2 id="authTitle" class="text-3xl font-bold tracking-tight mb-2">Join the Academy</h2>
+            <p id="authDesc" class="text-zinc-500 mb-8">Sign up to track your progress.</p>
+            
+            <div class="space-y-4">
+                <input type="email" id="authEmail" placeholder="Email Address" class="w-full bg-zinc-900 border border-white/10 rounded-2xl px-5 py-4 focus:outline-none focus:border-white transition">
+                <input type="password" id="authPassword" placeholder="Password" class="w-full bg-zinc-900 border border-white/10 rounded-2xl px-5 py-4 focus:outline-none focus:border-white transition">
+                <button onclick="handleAuth()" id="authBtn" class="w-full py-4 bg-white text-black font-bold rounded-2xl hover:bg-zinc-200 transition">Sign Up</button>
+            </div>
+            
+            <p class="mt-6 text-sm text-zinc-500">
+                <span id="authToggleText">Already have an account?</span> 
+                <button onclick="toggleAuthMode()" class="text-white underline" id="authToggleBtn">Log In</button>
+            </p>
+        </div>
+    </div>
+
     <div id="landingView" class="active-view">
-        <section class="min-h-screen flex flex-col items-center justify-center px-6 text-center bg-black">
+        <nav class="fixed top-0 right-0 p-6 z-50">
+            <button id="navAuthBtn" onclick="toggleAuthModal()" class="glass px-6 py-2 rounded-full text-sm font-medium hover:bg-white/10 transition">Log In</button>
+        </nav>
+
+        <section class="min-h-screen flex flex-col items-center justify-center px-6 text-center">
             <div data-aos="fade-up" data-aos-duration="1200">
-                <h2 class="text-zinc-500 text-sm font-semibold tracking-[0.2em] uppercase mb-6">The Standard</h2>
-                <h1 class="text-4xl md:text-7xl font-bold tracking-tight mb-16 max-w-4xl mx-auto">
-                    Get your store from <br>
-                    <span class="text-zinc-600">looking like this.</span>
-                </h1>
-                <div class="inline-block p-1 rounded-[3rem] bg-zinc-900/50 border border-white/5">
-                    <img src="IMG_5966.webp" alt="Before" class="w-full max-w-[320px] md:max-w-sm rounded-[2.5rem] iphone-shadow">
-                </div>
+                <h2 class="text-zinc-500 text-sm font-semibold tracking-[0.2em] mb-6 uppercase">The Standard</h2>
+                <h1 class="text-4xl md:text-7xl font-bold tracking-tight mb-16">Get your store from <br><span class="text-zinc-600">looking like this.</span></h1>
+                <img src="IMG_5966.webp" class="w-full max-w-sm mx-auto rounded-[2.5rem] iphone-shadow border border-white/5">
             </div>
         </section>
 
-        <section class="min-h-screen flex flex-col items-center justify-center px-6 text-center bg-black">
+        <section class="min-h-screen flex flex-col items-center justify-center px-6 text-center">
             <div data-aos="fade-up" data-aos-duration="1200">
-                <h1 class="text-4xl md:text-7xl font-bold tracking-tight mb-16">
-                    To <span class="bg-gradient-to-b from-white to-zinc-500 bg-clip-text text-transparent">this.</span>
-                </h1>
-                <div class="inline-block p-1 rounded-[3rem] bg-zinc-800/30 border border-white/10 relative">
-                    <div class="absolute -inset-4 bg-zinc-700/20 blur-3xl rounded-full opacity-60"></div>
-                    <img src="IMG_5963.webp" alt="After" class="relative w-full max-w-[320px] md:max-w-sm rounded-[2.5rem] shadow-2xl">
-                </div>
+                <h1 class="text-4xl md:text-7xl font-bold tracking-tight mb-16">To <span class="bg-gradient-to-b from-white to-zinc-500 bg-clip-text text-transparent">this.</span></h1>
+                <img src="IMG_5963.webp" class="w-full max-w-sm mx-auto rounded-[2.5rem] iphone-shadow border border-white/10">
             </div>
         </section>
 
-        <section class="min-h-[80vh] flex flex-col items-center justify-center px-8 text-center bg-black">
+        <section id="courses" class="h-[60vh] flex flex-col items-center justify-center text-center">
             <div data-aos="fade-up" data-aos-duration="1500">
-                <h2 class="text-3xl md:text-6xl font-semibold leading-tight max-w-5xl mx-auto text-zinc-400">
-                    "In a world of noise, we don't just build stores; <br> 
-                    <span class="text-white">we build legacies that demand to <span class="italic underline decoration-zinc-700">Be Seen.</span>"</span>
-                </h2>
-            </div>
-        </section>
-
-        <section id="courses" class="h-[60vh] flex flex-col items-center justify-center text-center bg-black">
-            <div data-aos="fade-up" data-aos-duration="2000">
-                <p class="text-zinc-500 mb-6 font-medium">Ready to transition?</p>
-                <button onclick="showDirectoryView()" class="apple-btn-shadow group flex items-center gap-3 px-12 py-5 bg-white text-black text-xl font-semibold rounded-full transform transition hover:scale-105">
-                    Courses
-                    <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
-                </button>
+                <button onclick="showDirectoryView()" class="apple-btn-shadow px-12 py-5 bg-white text-black text-xl font-bold rounded-full hover:scale-105 transition transform">Courses</button>
             </div>
         </section>
     </div>
 
     <div id="directoryView" class="hidden-view">
-        <nav class="fixed top-0 left-0 w-full p-6 z-50">
-            <button onclick="hideDirectoryView()" class="group flex items-center gap-3 text-zinc-400 transition hover:text-white bg-black/50 backdrop-blur-md px-5 py-3 rounded-full border border-white/5">
-                <svg class="w-5 h-5 transition-transform group-hover:-translate-x-1 animate-pulse-slow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M11 17l-5-5m0 0l5-5m-5 5h12"></path></svg>
-                Back
-            </button>
+        <nav class="fixed top-0 left-0 p-6 z-50">
+            <button onclick="switchView('landingView')" class="glass px-6 py-2 rounded-full text-sm">← Back</button>
         </nav>
 
-        <section class="min-h-screen pt-32 pb-24 px-6 md:px-12 bg-black">
-            <div class="text-center max-w-4xl mx-auto mb-20" data-aos="fade-up">
-                <h1 class="text-5xl md:text-8xl font-extrabold tracking-tighter mb-4">Academy.</h1>
-                <p class="text-xl text-zinc-500">Structured blueprints from zero to high performance.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-                <button onclick="showDetailViewOne()" class="course-card block w-full text-left bg-zinc-900 border border-white/10 rounded-[2.5rem] overflow-hidden flex flex-col" data-aos="fade-up">
-                    <div class="h-48 md:h-56 overflow-hidden border-b border-white/5">
-                        <img src="photo-1622151834677-70f982c9adef.avif" class="w-full h-full object-cover">
-                    </div>
-                    <div class="p-8">
-                        <h3 class="text-2xl font-bold mb-3">Part one | Starting • <span class="text-emerald-400">free</span></h3>
-                        <p class="text-zinc-400 text-sm">Lay the foundations of your legacy. Learn core principles.</p>
-                    </div>
+        <section class="pt-32 pb-24 px-6 max-w-7xl mx-auto">
+            <h1 class="text-6xl md:text-8xl font-black tracking-tighter mb-20 text-center" data-aos="fade-up">Academy.</h1>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <button onclick="switchView('detailOne')" class="course-card bg-zinc-900 rounded-[2.5rem] overflow-hidden border border-white/5" data-aos="fade-up">
+                    <img src="photo-1622151834677-70f982c9adef.avif" class="h-48 w-full object-cover">
+                    <div class="p-8"><h3 class="text-2xl font-bold">Part one | Starting • <span class="text-emerald-400">free</span></h3></div>
                 </button>
-
-                <button onclick="showDetailViewTwo()" class="course-card block w-full text-left bg-zinc-900 border border-white/10 rounded-[2.5rem] overflow-hidden flex flex-col" data-aos="fade-up" data-aos-delay="100">
-                    <div class="h-48 md:h-56 overflow-hidden border-b border-white/5">
-                        <img src="fulfillment.jpg" class="w-full h-full object-cover">
-                    </div>
-                    <div class="p-8">
-                        <h3 class="text-2xl font-bold mb-3">Part Two | Basics • <span class="text-blue-400">paid</span></h3>
-                        <p class="text-zinc-400 text-sm">Promoting, marketing, and the tools you need to scale.</p>
-                    </div>
+                <button onclick="checkPartTwoAccess()" class="course-card bg-zinc-900 rounded-[2.5rem] overflow-hidden border border-white/5" data-aos="fade-up" data-aos-delay="100">
+                    <img src="fulfillment.jpg" class="h-48 w-full object-cover">
+                    <div class="p-8"><h3 class="text-2xl font-bold">Part Two | Basics • <span class="text-blue-400">paid</span></h3></div>
                 </button>
-
-                <script>
-                    for(let i=0; i<4; i++) {
-                        document.write(`<div class="course-card bg-zinc-950 border border-white/5 rounded-[2.5rem] overflow-hidden opacity-40 h-full flex flex-col"><div class="h-48 bg-zinc-900 flex items-center justify-center text-4xl">🔒</div><div class="p-8"><h3 class="text-2xl font-bold mb-3 text-zinc-500">Coming soon • paid</h3></div></div>`);
-                    }
-                </script>
             </div>
         </section>
     </div>
 
-    <div id="detailViewOne" class="hidden-view">
-        <nav class="fixed top-0 left-0 w-full p-6 z-50">
-            <button onclick="switchView('directory')" class="text-zinc-400 hover:text-white bg-black/50 backdrop-blur-md px-5 py-3 rounded-full border border-white/5">← Academy</button>
+    <div id="detailOne" class="hidden-view">
+        <nav class="fixed top-0 left-0 p-6 z-50">
+            <button onclick="switchView('directoryView')" class="glass px-6 py-2 rounded-full text-sm">← Academy</button>
         </nav>
-        <article class="min-h-screen pt-40 pb-24 px-6 max-w-3xl mx-auto">
-            <h1 class="text-5xl md:text-7xl font-extrabold tracking-tighter mb-12 text-center">Starting Ecom.</h1>
-            <div class="space-y-8 text-zinc-300 text-lg leading-relaxed">
-                <p>Starting an e-commerce business is often romanticized as easy—a few clicks to a Shopify store and the money rolls in. The reality is that starting ecom is not about the technology; it's about foundation. Success isn't found in a trend, but in identifying a core market need and solving it better than anyone else. Your first phase is about research, not revenue.</p>
-                <p>This path requires extraordinary patience. The metrics you see posted online are often the culmination of months, sometimes years, of unseen failure. You must fall in love with the process and the data, not just the potential payout. Testing your product, optimizing your site, and refining your messaging takes time.</p>
-                <p>The marketplace demands hospitality in every interaction. In digital commerce, hospitality isn't just about good customer service; it's about an integrated philosophy. From the speed of your site to the language of your emails, every detail of your user experience is an opportunity to express hospitality.</p>
-                <p>Finally, your mental state is the definitive variable. The difference between the 'Standard' and the 'Legacy' store often boils down to mindset. You are building in a high-pressure, rapidly changing, data-driven environment. Developing a resilient mental state is critical. To build a store that demands to be seen, you must first do the work that remains invisible.</p>
-            </div>
+        <article class="pt-40 pb-24 px-6 max-w-3xl mx-auto space-y-8 text-zinc-300 text-lg">
+            <h1 class="text-5xl font-black text-white text-center mb-16">Starting Ecom.</h1>
+            <p>Starting an e-commerce business is often romanticized as easy—a few clicks to a Shopify store and the money rolls in. The reality is that starting ecom is not about the technology; it's about foundation. Success isn't found in a trend, but in identifying a core market need and solving it better than anyone else.</p>
+            <p>This path requires extraordinary patience. The metrics you see posted online are often the culmination of months, sometimes years, of unseen failure. You must fall in love with the process and the data, not just the potential payout.</p>
+            <p>The marketplace demands hospitality in every interaction. In digital commerce, hospitality isn't just about good customer service; it's about an integrated philosophy. From the speed of your site to the language of your emails, every detail builds trust.</p>
+            <p>Finally, your mental state is the definitive variable. The difference between the 'Standard' and the 'Legacy' store often boils down to mindset. Developing a resilient mental state is critical. To build a store that demands to be seen, you must first do the work that remains invisible.</p>
         </article>
     </div>
 
-    <div id="detailViewTwo" class="hidden-view">
-        <nav class="fixed top-0 left-0 w-full p-6 z-50">
-            <button onclick="switchView('directory')" class="text-zinc-400 hover:text-white bg-black/50 backdrop-blur-md px-5 py-3 rounded-full border border-white/5">← Academy</button>
+    <div id="detailTwo" class="hidden-view">
+        <nav class="fixed top-0 left-0 p-6 z-50">
+            <button onclick="switchView('directoryView')" class="glass px-6 py-2 rounded-full text-sm">← Academy</button>
         </nav>
-        <article class="min-h-screen pt-40 pb-24 px-6 relative">
-            <div class="fixed inset-0 pt-40 bg-black/95 backdrop-blur-md z-40 flex flex-col items-center justify-center text-center p-6">
+        <article class="pt-40 pb-24 px-6 relative">
+            <div id="lockOverlay" class="fixed inset-0 pt-40 bg-black/95 z-40 flex flex-col items-center justify-center text-center p-6">
                 <span class="text-7xl mb-8 block">🔒</span>
-                <h2 class="text-4xl font-extrabold mb-4">Unlock Part Two.</h2>
-                <p class="text-zinc-400 mb-10 max-w-sm">Gain access to the structural blueprints of promoting and social media marketing.</p>
-                
-                <a href="https://buy.stripe.com/00w3co3lYaCE84hcbb5gc00" target="_blank" class="apple-btn-shadow px-12 py-5 bg-white text-black text-xl font-semibold rounded-full transition hover:scale-105">
-                    Buy Now
-                </a>
+                <h2 class="text-4xl font-bold mb-4 text-white">Unlock Part Two.</h2>
+                <p class="text-zinc-400 mb-10 max-w-sm">Authorization required. This module covers promoting and marketing blueprints.</p>
+                <a href="https://buy.stripe.com/PASTE_YOUR_LINK_HERE" target="_blank" class="px-12 py-5 bg-white text-black font-bold rounded-full">Buy Now</a>
             </div>
 
-            <div class="max-w-3xl mx-auto opacity-10 select-none pointer-events-none">
-                <h1 class="text-5xl md:text-7xl font-extrabold mb-12 text-center">Understanding The Basics.</h1>
-                <div class="space-y-8 text-lg">
-                    <p>Once your storefront is built, the real architecture begins. Building a storefront without a promotional strategy is like printing money that is not legal tender. Promotion is not just about noise; it is about visibility where your specific market is already gathering.</p>
-                    <p>Social media marketing is the central axis of modern demand. Platforms like TikTok, Instagram, and Pinterest are not merely applications; they are the modern, data-driven engines of human aspiration. A legacy approach focuses on attention-at-scale.</p>
-                    <p>While social is the engine, your website is the engine room. Every millisecond of load time is hospitality, and every pixel is intentional. Platforms like Shopify provide the structural integrity, but your customization must convey your brand's unique signature.</p>
-                    <p>To scale, you must understand the landscape of platforms. Choosing between native storefronts (Shopify), marketplaces (Amazon FBA), or third-party logistics (3PL) is a strategic, not tactical, decision. Your decision here defines your logistical legacy.</p>
+            <div id="lockedContent" class="max-w-3xl mx-auto opacity-10 blur-sm pointer-events-none">
+                <h1 class="text-5xl font-black text-white text-center mb-16">Understanding The Basics.</h1>
+                <div class="space-y-8 text-zinc-300 text-lg">
+                    <p>Once your storefront is built, the real architecture begins. Building a storefront without a promotional strategy is like printing money that is not legal tender. Promotion is about visibility where your specific market is already gathering.</p>
+                    <p>Social media marketing is the central axis of modern demand. Platforms like TikTok, Instagram, and Pinterest are not merely applications; they are the engines of aspiration. A legacy approach focuses on attention-at-scale.</p>
+                    <p>While social is the engine, your website is the engine room. Every millisecond of load time is hospitality. Platforms like Shopify provide the structural integrity, but your customization must convey your brand's unique signature.</p>
+                    <p>To scale, you must understand the landscape of platforms. Choosing between native storefronts or marketplaces is a strategic decision. Your decision here defines your logistical legacy.</p>
                     <p>Ultimately, these elements must fuse into a logistical legacy. Logistics are not just fulfillment; they are the physical extension of your brand promise. When your brand fuses efficient logistics with data-driven promotion, you cease to be a store and become a brand.</p>
                 </div>
             </div>
         </article>
     </div>
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ once: true });
-        
+        // 1. SUPABASE CONFIG
+        const _URL = 'https://wosvmiqeumkmijqydqlu.supabase.co';
+        const _KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indvc3ZtaXFldW1rbWlqcXlkcWx1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU0MDU4MjEsImV4cCI6MjA5MDk4MTgyMX0.32GFGZ7tgxZlJjqS2G3aSNAHuxk4QuHdcjlFrCY0I-U';
+        const supabase = supabase.createClient(_URL, _KEY);
+
+        let isLoginMode = false;
+
+        // 2. VIEW CONTROLS
         function switchView(id) {
-            document.querySelectorAll('#landingView, #directoryView, #detailViewOne, #detailViewTwo').forEach(v => v.classList.replace('active-view', 'hidden-view'));
+            document.querySelectorAll('#landingView, #directoryView, #detailOne, #detailTwo').forEach(v => v.classList.replace('active-view', 'hidden-view'));
             document.getElementById(id).classList.replace('hidden-view', 'active-view');
             window.scrollTo(0,0);
             setTimeout(() => AOS.refresh(), 50);
         }
 
         function showDirectoryView() { switchView('directoryView'); }
-        function showDetailViewOne() { switchView('detailViewOne'); }
-        function showDetailViewTwo() { switchView('detailViewTwo'); }
-        function hideDirectoryView() {
-            switchView('landingView');
-            setTimeout(() => document.getElementById('courses').scrollIntoView(), 100);
+
+        // 3. AUTH LOGIC
+        function toggleAuthModal() { document.getElementById('authModal').classList.toggle('hidden'); }
+
+        function toggleAuthMode() {
+            isLoginMode = !isLoginMode;
+            document.getElementById('authTitle').innerText = isLoginMode ? 'Welcome Back' : 'Join the Academy';
+            document.getElementById('authBtn').innerText = isLoginMode ? 'Log In' : 'Sign Up';
+            document.getElementById('authToggleBtn').innerText = isLoginMode ? 'Sign Up' : 'Log In';
+            document.getElementById('authToggleText').innerText = isLoginMode ? "Don't have an account?" : "Already have an account?";
         }
+
+        async function handleAuth() {
+            const email = document.getElementById('authEmail').value;
+            const password = document.getElementById('authPassword').value;
+
+            const { data, error } = isLoginMode 
+                ? await supabase.auth.signInWithPassword({ email, password })
+                : await supabase.auth.signUp({ email, password });
+
+            if (error) alert(error.message);
+            else {
+                alert(isLoginMode ? "Logged in!" : "Check your email to confirm!");
+                toggleAuthModal();
+                updateAuthUI();
+            }
+        }
+
+        async function updateAuthUI() {
+            const { data: { user } } = await supabase.auth.getUser();
+            if (user) {
+                document.getElementById('navAuthBtn').innerText = 'Account';
+                // Check if user has paid
+                let { data: profile } = await supabase.from('profiles').select('has_paid').eq('id', user.id).single();
+                if (profile?.has_paid) {
+                    document.getElementById('lockOverlay').style.display = 'none';
+                    document.getElementById('lockedContent').classList.remove('opacity-10', 'blur-sm', 'pointer-events-none');
+                }
+            }
+        }
+
+        async function checkPartTwoAccess() {
+            const { data: { user } } = await supabase.auth.getUser();
+            if (!user) { toggleAuthModal(); return; }
+            switchView('detailTwo');
+            updateAuthUI();
+        }
+
+        window.onload = () => { AOS.init({ once: true }); updateAuthUI(); };
     </script>
 </body>
 </html>
