@@ -23,12 +23,19 @@
         .hidden-view { display: none !important; }
         .active-view { display: block !important; }
         .glass { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        
+        /* Premium Glow Effect */
+        .premium-btn { border: 1px solid rgba(255, 255, 255, 0.4); background: rgba(255, 255, 255, 0.1); transition: all 0.3s ease; }
+        .premium-btn:hover { background: #fff; color: #000; box-shadow: 0 0 20px rgba(255, 255, 255, 0.4); }
     </style>
 
     <script>
         function toggleAuthModal() {
-            const modal = document.getElementById('authModal');
-            modal.classList.toggle('hidden-view');
+            document.getElementById('authModal').classList.toggle('hidden-view');
+        }
+
+        function togglePremiumModal() {
+            document.getElementById('premiumModal').classList.toggle('hidden-view');
         }
 
         function switchView(id) {
@@ -42,7 +49,7 @@
 </head>
 <body>
 
-    <div id="authModal" class="fixed inset-0 z-[999] flex items-center justify-center p-6 hidden-view">
+    <div id="authModal" class="fixed inset-0 z-[1000] flex items-center justify-center p-6 hidden-view">
         <div class="absolute inset-0 bg-black/90 backdrop-blur-md" onclick="toggleAuthModal()"></div>
         <div class="relative glass w-full max-w-md rounded-[2.5rem] p-10 text-center iphone-shadow">
             <h2 id="authTitle" class="text-3xl font-bold tracking-tight mb-2">Join the Academy</h2>
@@ -57,10 +64,28 @@
         </div>
     </div>
 
+    <div id="premiumModal" class="fixed inset-0 z-[1000] flex items-center justify-center p-6 hidden-view">
+        <div class="absolute inset-0 bg-black/90 backdrop-blur-md" onclick="togglePremiumModal()"></div>
+        <div class="relative glass w-full max-w-lg rounded-[2.5rem] p-10 iphone-shadow text-center">
+            <span class="text-5xl mb-6 block">✨</span>
+            <h2 class="text-3xl font-bold tracking-tight mb-4 text-white">Be Seen Premium</h2>
+            <p class="text-zinc-400 mb-8 leading-relaxed">
+                Be Seen Premium provides many offers including: Access to all courses, private support from the Be Seen team, Access to the discord server, early access to updates, and much more.
+            </p>
+            <a href="https://buy.stripe.com/fZu9AMbSudOQ4S58YZ5gc02" target="_blank" class="block w-full py-5 bg-white text-black font-extrabold rounded-2xl text-xl hover:bg-zinc-200 transition active:scale-95">
+                Subscribe
+            </a>
+            <button onclick="togglePremiumModal()" class="mt-6 text-zinc-500 text-sm hover:text-white transition">Close</button>
+        </div>
+    </div>
+
     <div id="landingView">
         <nav class="fixed top-0 w-full flex justify-between items-center p-8 z-50">
             <div class="text-xl font-black tracking-tighter uppercase italic">Be Seen</div>
-            <button onclick="toggleAuthModal()" class="glass px-6 py-2 rounded-full text-sm font-semibold">Log In</button>
+            <div class="flex gap-4">
+                <button onclick="togglePremiumModal()" class="premium-btn px-6 py-2 rounded-full text-sm font-semibold">Get Premium</button>
+                <button id="navAuthBtn" onclick="toggleAuthModal()" class="glass px-6 py-2 rounded-full text-sm font-semibold">Log In</button>
+            </div>
         </nav>
 
         <section class="min-h-screen flex flex-col items-center justify-center px-6 text-center">
@@ -86,7 +111,10 @@
     </div>
 
     <div id="directoryView" class="hidden-view">
-        <nav class="fixed top-0 left-0 p-8 z-50"><button onclick="switchView('landingView')" class="glass px-6 py-2 rounded-full text-sm">← Back</button></nav>
+        <nav class="fixed top-0 w-full flex justify-between items-center p-8 z-50">
+            <button onclick="switchView('landingView')" class="glass px-6 py-2 rounded-full text-sm">← Back</button>
+            <button onclick="togglePremiumModal()" class="premium-btn px-6 py-2 rounded-full text-sm font-semibold">Get Premium</button>
+        </nav>
         <section class="pt-32 pb-24 px-6 max-w-7xl mx-auto">
             <h1 class="text-6xl md:text-9xl font-black tracking-tighter mb-20 text-center">Academy.</h1>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -106,10 +134,10 @@
         <nav class="fixed top-0 left-0 p-8 z-50"><button onclick="switchView('directoryView')" class="glass px-6 py-2 rounded-full text-sm">← Academy</button></nav>
         <article class="pt-40 pb-24 px-6 max-w-3xl mx-auto space-y-8 text-zinc-300 text-lg leading-relaxed">
             <h1 class="text-5xl font-black text-white text-center mb-16 uppercase italic tracking-tighter">Starting Ecom.</h1>
-            <p>Starting an e-commerce business is often romanticized as easy—a few clicks to a Shopify store and the money rolls in. The reality is that starting ecom is not about the technology; it's about foundation. Success isn't found in a trend, but in identifying a core market need and solving it better than anyone else. Your first phase is about research, not revenue. It requires a relentless desire to understand who your customer is, what pains them, and why they would choose your brand when they have ten thousand other options. Laying this groundwork is meticulous work, and skiping it ensures you’ll be 'unseen' by the algorithm.</p>
-            <p>This path requires extraordinary patience. The metrics you see posted online are often the culmination of months, sometimes years, of unseen failure. You must fall in love with the process and the data, not just the potential payout. Testing your product, optimizing your site, and refining your messaging takes time, and you will likely see no return on your initial efforts for weeks or months. True operators manage their expectations as tightly as they manage their margins. If you judge your long-term potential by your short-term results, you will quit long before your 'After' moment arrives. Patience is the price of admission for longevity.</p>
-            <p>The marketplace demands hospitality in every interaction. In digital commerce, hospitality isn't just about good customer service; it's about an integrated philosophy. From the speed of your site to the language of your emails, every detail of your user experience is an opportunity to express hospitality. Your brand must convey that you have considered the user’s needs before they even knew they had them. This builds an invisible layer of trust that modern consumers demand before they will transact with a new entity. Without this mindset, your store is merely a digital storefront; with it, you are building a destination customers remember.</p>
-            <p>Finally, your mental state is the definitive variable. The difference between the 'Standard' and the 'Legacy' store often boils down to mindset. You are building in a high-pressure, rapidly changing, data-driven environment. Developing a resilient mental state is critical. The strongest operators are detached from short-term outcomes but fiercely committed to long-term goals. They treat failures as cheap data points, not personal reflections. They manage anxiety with structure and use discipline, not motivation, to bridge the gap between their before and their after. To build a store that demands to be seen, you must first do the work that remains invisible.</p>
+            <p>Starting an e-commerce business is often romanticized as easy—a few clicks to a Shopify store and the money rolls in. The reality is that starting ecom is not about the technology; it's about foundation. Success isn't found in a trend, but in identifying a core market need and solving it better than anyone else. Your first phase is about research, not revenue.</p>
+            <p>This path requires extraordinary patience. The metrics you see posted online are often the culmination of months, sometimes years, of unseen failure. You must fall in love with the process and the data, not just the potential payout.</p>
+            <p>The marketplace demands hospitality in every interaction. In digital commerce, hospitality isn't just about good customer service; it's about an integrated philosophy. From the speed of your site to the language of your emails, every detail of your user experience is an opportunity to express hospitality.</p>
+            <p>Finally, your mental state is the definitive variable. Developing a resilient mental state is critical. To build a store that demands to be seen, you must first do the work that remains invisible.</p>
             <button onclick="switchView('directoryView')" class="mt-12 block mx-auto text-white underline font-semibold">Back to Academy</button>
         </article>
     </div>
@@ -123,15 +151,11 @@
                 <a href="https://buy.stripe.com/00w3co3lYaCE84hcbb5gc00" target="_blank" class="px-14 py-6 bg-white text-black font-extrabold rounded-full text-xl">Buy Now</a>
                 <button onclick="switchView('directoryView')" class="mt-8 text-zinc-500 text-sm underline">Return to Academy</button>
             </div>
-
             <div id="lockedContent" class="max-w-3xl mx-auto opacity-10 blur-sm select-none pointer-events-none">
                 <h1 class="text-5xl font-black text-white text-center mb-16 uppercase italic">Understanding Basics.</h1>
                 <div class="space-y-8 text-zinc-300 text-lg leading-relaxed">
-                    <p>Once your storefront is built, the real architecture begins. Building a storefront without a promotional strategy is like printing money that is not legal tender; it might look right, but it will transacted with nothing. Promotion is not just about noise; it is about visibility where your specific market is already gathering. In this module, we move past the 'Standard' metrics and begin building a system of demand generation that pulls customers toward your brand, demanding they Be Seen.</p>
-                    <p>Social media marketing is the central axis of modern demand. Platforms like TikTok, Instagram, and Pinterest are not merely applications; they are the modern, data-driven engines of human aspiration. However, the 'Standard' approach is to chase viral moments. A legacy approach focuses on attention-at-scale. We deep-dive into creating content that doesn't just entertain but authorizes. Your audience must see your brand not as a product to buy, but as a lifestyle they must participate in to validate their own identity.</p>
-                    <p>While social is the engine, your website is the engine room. Every millisecond of load time is hospitality, and every pixel is intentional. Platforms like Shopify or WooCommerce provide the structural integrity, but your customization must convey your brand's unique signature. In an environment where the consumer's default state is suspicion, your site's performance, design-density, and check-out frictionless build the trust that results in high-ticket transactions. Your site must not only load; it must declare legitimacy.</p>
-                    <p>To scale, you must understand the landscape of platforms. Choosing between native storefronts (Shopify), marketplaces (Amazon FBA), or third-party logistics (3PL) is a strategic, not tactical, decision. Marketplace integration offers massive exposure but compromises your ability to 'own' your customer data. Native storefronts demand higher promotional costs but offer maximum design and brand sovereignty. Your decision here defines your logistical legacy, determining how efficiently your brand can deliver on the promises made in your marketing.</p>
-                    <p>Ultimately, these elements must fuse into a logistical legacy. Logistics are not just fulfillment; they are the physical extension of your brand promise. FBA (Fulfillment by Amazon) offers unparalleled trust and speed, but 3PL (Third Party Logistics) allows you to customize every box, making the unboxing part of your brand hospitality. When your brand fuses efficient logistics with data-driven promotion, you cease to be a store trying to sell and become a brand that demands to be Seen. In this view, logistics are just marketing you can touch.</p>
+                    <p>Once your storefront is built, the real architecture begins. Building a storefront without a promotional strategy is like printing money that is not legal tender. Promotion is not just about noise; it is about visibility where your market is gathering.</p>
+                    <p>Social media marketing is the central axis of modern demand. Platforms like TikTok, Instagram, and Pinterest are the engines of aspiration. Content doesn't just entertain; it authorizes.</p>
                 </div>
             </div>
         </article>
@@ -152,8 +176,6 @@
         async function handleAuth() {
             const email = document.getElementById('authEmail').value;
             const password = document.getElementById('authPassword').value;
-            if(!email || !password) return alert("Please enter credentials.");
-
             const { data, error } = isLoginMode 
                 ? await sb.auth.signInWithPassword({ email, password })
                 : await sb.auth.signUp({ email, password });
@@ -169,12 +191,11 @@
         async function updateAuthUI() {
             const { data: { user } } = await sb.auth.getUser();
             if (user) {
+                document.getElementById('navAuthBtn').innerText = 'Account';
                 let { data: profile } = await sb.from('profiles').select('has_paid').eq('id', user.id).single();
                 if (profile?.has_paid) {
-                    const overlay = document.getElementById('lockOverlay');
-                    const content = document.getElementById('lockedContent');
-                    if(overlay) overlay.style.display = 'none';
-                    if(content) content.classList.remove('opacity-10', 'blur-sm', 'select-none', 'pointer-events-none');
+                    document.getElementById('lockOverlay').style.display = 'none';
+                    document.getElementById('lockedContent').classList.remove('opacity-10', 'blur-sm', 'select-none', 'pointer-events-none');
                 }
             }
         }
