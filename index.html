@@ -22,7 +22,7 @@
             box-shadow: 0 25px 50px -12px rgba(255, 255, 255, 0.1);
         }
 
-        /* Standard CTA Button Glow */
+        /* Standard CTA Button Glow (Apple Look) */
         .apple-btn-shadow {
             box-shadow: 0 4px 14px 0 rgba(255, 255, 255, 0.3);
             transition: all 0.3s ease-out;
@@ -47,7 +47,7 @@
         .active-view {
             display: block;
         }
-        
+
         /* Pulse for the back button arrow */
         .animate-pulse-slow {
             animation: pulse-slow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
@@ -75,12 +75,12 @@
             </div>
         </section>
 
-        <section class="min-h-screen flex flex-col items-center justify-center px-6 text-center bg-black">
+        <section class="min-h-screen flex flex-col items-center justify-center px-6 text-center bg-black relative">
             <div data-aos="fade-up" data-aos-duration="1200" data-aos-delay="100">
                 <h1 class="text-4xl md:text-7xl font-bold tracking-tight mb-16">
                     To <span class="bg-gradient-to-b from-white to-zinc-500 bg-clip-text text-transparent">this.</span>
                 </h1>
-                <div class="success-glow inline-block p-1 rounded-[3rem] bg-zinc-800/30 border border-white/10 relative">
+                <div class="inline-block p-1 rounded-[3rem] bg-zinc-800/30 border border-white/10 relative">
                     <div class="absolute -inset-4 bg-zinc-700/20 blur-3xl rounded-full opacity-60"></div>
                     <img src="IMG_5963.webp" alt="After" class="relative w-full max-w-[320px] md:max-w-sm rounded-[2.5rem] shadow-2xl">
                 </div>
@@ -96,7 +96,7 @@
             </div>
         </section>
 
-        <section class="h-[60vh] flex flex-col items-center justify-center text-center bg-black relative">
+        <section id="courses" class="h-[60vh] flex flex-col items-center justify-center text-center bg-black relative">
             <div data-aos="fade-up" data-aos-duration="2000">
                 <p class="text-zinc-500 mb-6 font-medium">Ready to transition?</p>
                 <button onclick="showDirectoryView()" class="apple-btn-shadow group flex items-center gap-3 px-12 py-5 bg-white text-black text-xl font-semibold rounded-full transform transition hover:scale-105 active:scale-95">
@@ -125,9 +125,9 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
 
                 <div data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000">
-                    <button onclick="showDetailView()" class="course-card block w-full text-left bg-zinc-900 border border-white/10 rounded-[2.5rem] overflow-hidden iphone-shadow h-full flex flex-col">
+                    <button onclick="showDetailViewOne()" class="course-card block w-full text-left bg-zinc-900 border border-white/10 rounded-[2.5rem] overflow-hidden iphone-shadow h-full flex flex-col">
                         <div class="h-48 md:h-56 overflow-hidden relative border-b border-white/5">
-                            <img src="photo-1622151834677-70f982c9adef.avif" alt="Part One" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <img src="phooto-1622151834677-70f982c9adef.avif" alt="Part One" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                         </div>
                         <div class="p-8 flex-grow">
                             <h3 class="text-2xl font-bold tracking-tight text-white mb-3">Part one | Starting <span class="text-zinc-500 mx-1">•</span> <span class="text-emerald-400 font-medium">free</span></h3>
@@ -136,9 +136,21 @@
                     </button>
                 </div>
 
+                <div data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000">
+                    <button onclick="showDetailViewTwo()" class="course-card block w-full text-left bg-zinc-900 border border-white/10 rounded-[2.5rem] overflow-hidden iphone-shadow h-full flex flex-col">
+                        <div class="h-48 md:h-56 overflow-hidden relative border-b border-white/5">
+                            <img src="fulfillment.jpg" alt="Part Two" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        </div>
+                        <div class="p-8 flex-grow">
+                            <h3 class="text-2xl font-bold tracking-tight text-white mb-3">Part Two | Understanding <span class="text-zinc-500 mx-1">•</span> <span class="text-blue-400 font-medium">paid</span></h3>
+                            <p class="text-zinc-400 leading-relaxed text-sm">Deep-dive into promoting, platforms, and the structural tools you need to build your legacy.</p>
+                        </div>
+                    </button>
+                </div>
+
                 <script>
-                    const delayStart = 200;
-                    for (let i = 0; i < 5; i++) {
+                    const delayStart = 300;
+                    for (let i = 0; i < 4; i++) {
                         document.write(`
                             <div data-aos="fade-up" data-aos-delay="${delayStart + (i * 100)}" data-aos-duration="1000">
                                 <div class="course-card bg-zinc-950 border border-white/5 rounded-[2.5rem] overflow-hidden opacity-60 h-full flex flex-col">
@@ -161,10 +173,10 @@
         </section>
     </div>
 
-    <div id="detailView" class="hidden-view">
+    <div id="detailViewOne" class="hidden-view">
         
         <nav class="fixed top-0 left-0 w-full p-6 z-50">
-            <button onclick="hideDetailView()" class="group flex items-center gap-3 text-zinc-400 transition hover:text-white bg-black/50 backdrop-blur-md px-5 py-3 rounded-full border border-white/5">
+            <button onclick="hideDetailViewOne()" class="group flex items-center gap-3 text-zinc-400 transition hover:text-white bg-black/50 backdrop-blur-md px-5 py-3 rounded-full border border-white/5">
                 <svg class="w-5 h-5 transition-transform group-hover:-translate-x-1 animate-pulse-slow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M11 17l-5-5m0 0l5-5m-5 5h12"></path></svg>
                 Academy
             </button>
@@ -190,6 +202,50 @@
         </article>
     </div>
 
+    <div id="detailViewTwo" class="hidden-view">
+        
+        <nav class="fixed top-0 left-0 w-full p-6 z-50">
+            <button onclick="hideDetailViewTwo()" class="group flex items-center gap-3 text-zinc-400 transition hover:text-white bg-black/50 backdrop-blur-md px-5 py-3 rounded-full border border-white/5">
+                <svg class="w-5 h-5 transition-transform group-hover:-translate-x-1 animate-pulse-slow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M11 17l-5-5m0 0l5-5m-5 5h12"></path></svg>
+                Academy
+            </button>
+        </nav>
+
+        <article class="min-h-screen pt-40 pb-24 px-6 bg-black relative">
+            
+            <div id="lockOverlay" class="fixed inset-0 pt-40 bg-black/95 backdrop-blur-sm z-40 flex flex-col items-center justify-center text-center p-6">
+                <div data-aos="zoom-in" data-aos-duration="1000" class="max-w-md">
+                    <span class="text-7xl mb-8 block">🔒</span>
+                    <h2 class="text-4xl font-extrabold tracking-tighter text-white mb-4">You have arrived.</h2>
+                    <p class="text-zinc-400 mb-10 leading-relaxed">Part Two requires authorization. This module covers promoting, platforms, and scaling logistics—your final blueprints to Be Seen.</p>
+                    <a href="#" target="_blank" class="apple-btn-shadow group flex items-center gap-3 px-12 py-5 bg-white text-black text-xl font-semibold rounded-full transform transition hover:scale-105 active:scale-95 mx-auto w-fit">
+                        Buy Now
+                        <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
+                    </a>
+                </div>
+            </div>
+
+            <div data-aos="fade-up" data-aos-duration="1200" class="max-w-3xl mx-auto opacity-10">
+                <header class="mb-16 border-b border-white/10 pb-16 text-center">
+                    <h1 class="text-5xl md:text-7xl font-extrabold tracking-tighter text-white mb-6 leading-tight">Platform, Promotion, and the Power of Logistics.</h1>
+                    <p class="text-xl text-zinc-400 max-w-xl mx-auto">Part Two of your journey to Be Seen.</p>
+                </header>
+                
+                <div class="prose prose-invert prose-zinc prose-lg mx-auto leading-relaxed space-y-8 text-zinc-300">
+                    <p>Once your storefront is built, the real architecture begins. Building a storefront without a promotional strategy is like printing money that is not legal tender; it might look right, but it will transacted with nothing. Promotion is not just about noise; it is about visibility where your specific market is already gathering. In this module, we move past the 'Standard' metrics and begin building a system of demand generation that pulls customers toward your brand, demanding they Be Seen.</p>
+                    
+                    <p>Social media marketing is the central axis of modern demand. Platforms like TikTok, Instagram, and Pinterest are not merely applications; they are the modern, data-driven engines of human aspiration. However, the 'Standard' approach is to chase viral moments. A legacy approach focuses on attention-at-scale. We deep-dive into creating content that doesn't just entertain but authorizes. Your audience must see your brand not as a product to buy, but as a lifestyle they must participate in to validate their own identity.</p>
+                    
+                    <p>While social is the engine, your website is the engine room. Every millisecond of load time is hospitality, and every pixel is intentional. Platforms like Shopify or WooCommerce provide the structural integrity, but your customization must convey your brand's unique signature. In an environment where the consumer's default state is suspicion, your site's performance, design-density, and check-out frictionless build the trust that results in high-ticket transactions. Your site must not only load; it must declare legitimacy.</p>
+                    
+                    <p>To scale, you must understand the landscape of platforms. Choosing between native storefronts (Shopify), marketplaces (Amazon FBA), or third-party logistics (3PL) is a strategic, not tactical, decision. Marketplace integration offers massive exposure but compromises your ability to 'own' your customer data. Native storefronts demand higher promotional costs but offer maximum design and brand sovereignty. Your decision here defines your logistical legacy, determining how efficiently your brand can deliver on the promises made in your marketing.</p>
+                    
+                    <p>Ultimately, these elements must fuse into a logistical legacy. Logistics are not just fulfillment; they are the physical extension of your brand promise. FBA (Fulfillment by Amazon) offers unparalleled trust and speed, but 3PL (Third Party Logistics) allows you to customize every box, making the unboxing part of your brand hospitality. When your brand fuses efficient logistics with data-driven promotion, you cease to be a store trying to sell and become a brand that demands to be Seen. In this view, logistics are just marketing you can touch.</p>
+                </div>
+            </div>
+        </article>
+    </div>
+
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         // Init animations
@@ -198,16 +254,21 @@
             offset: 150
         });
 
-        const landingView = document.getElementById('landingView');
-        const directoryView = document.getElementById('directoryView');
-        const detailView = document.getElementById('detailView');
+        const views = {
+            landing: document.getElementById('landingView'),
+            directory: document.getElementById('directoryView'),
+            detailOne: document.getElementById('detailViewOne'),
+            detailTwo: document.getElementById('detailViewTwo')
+        };
 
-        // Functions to transition views and trigger animations
-        function showDirectoryView() {
-            landingView.classList.remove('active-view');
-            landingView.classList.add('hidden-view');
-            directoryView.classList.add('active-view');
-            directoryView.classList.remove('hidden-view');
+        // Standard function to swap views and refresh animations
+        function switchView(activeViewId) {
+            Object.values(views).forEach(v => {
+                v.classList.remove('active-view');
+                v.classList.add('hidden-view');
+            });
+            views[activeViewId].classList.add('active-view');
+            views[activeViewId].classList.remove('hidden-view');
             
             // Need a slight delay to trigger animations in the new view
             setTimeout(() => {
@@ -216,40 +277,27 @@
             }, 50);
         }
 
+        // --- SPECIFIC SWITCHERS ---
+        function showDirectoryView() { switchView('directory'); }
+        function showDetailViewOne() { switchView('detailOne'); }
+        function showDetailViewTwo() { switchView('detailTwo'); }
+
+        // --- BACK BUTTONS ---
         function hideDirectoryView() {
-            directoryView.classList.remove('active-view');
-            directoryView.classList.add('hidden-view');
+            // Take them back to the last CTA section on landing
             landingView.classList.add('active-view');
             landingView.classList.remove('hidden-view');
-            setTimeout(() => {
-                AOS.refresh();
-                // Find and scroll to the hook section to maintain context
-                const hookSection = document.getElementById('courses');
-                if(hookSection) { hookSection.scrollIntoView(); }
-            }, 50);
-        }
-
-        function showDetailView() {
-            directoryView.classList.remove('active-view');
             directoryView.classList.add('hidden-view');
-            detailView.classList.add('active-view');
-            detailView.classList.remove('hidden-view');
+            directoryView.classList.remove('active-view');
             setTimeout(() => {
-                AOS.refresh();
-                window.scrollTo(0, 0);
+                const ctaSection = document.getElementById('courses');
+                if(ctaSection) { ctaSection.scrollIntoView(); }
             }, 50);
         }
 
-        function hideDetailView() {
-            detailView.classList.remove('active-view');
-            detailView.classList.add('hidden-view');
-            directoryView.classList.add('active-view');
-            directoryView.classList.remove('hidden-view');
-            setTimeout(() => {
-                AOS.refresh();
-                window.scrollTo(0, 0); // Scroll to the grid
-            }, 50);
-        }
+        function hideDetailViewOne() { switchView('directory'); }
+        function hideDetailViewTwo() { switchView('directory'); }
+
     </script>
 </body>
 </html>
