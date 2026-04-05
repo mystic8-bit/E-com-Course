@@ -14,81 +14,242 @@
             background-color: #000;
             color: #fff;
             scroll-behavior: smooth;
+            overflow-x: hidden;
         }
 
-        /* Custom shadow for that high-end Apple hardware look */
+        /* Apple Hardware Shadows */
         .iphone-shadow {
             box-shadow: 0 25px 50px -12px rgba(255, 255, 255, 0.1);
         }
 
-        /* Subtle pulsing light for the 'After' image */
-        .success-glow {
-            position: relative;
+        /* Standard CTA Button Glow */
+        .apple-btn-shadow {
+            box-shadow: 0 4px 14px 0 rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease-out;
         }
-        .success-glow::after {
-            content: '';
-            position: absolute;
-            inset: -20px;
-            background: radial-gradient(circle, rgba(59,130,246,0.15) 0%, rgba(0,0,0,0) 70%);
-            z-index: -1;
+        .apple-btn-shadow:hover {
+            box-shadow: 0 6px 20px rgba(255, 255, 255, 0.5);
+        }
+
+        /* Course Card Hover FX: Grow + White Glow */
+        .course-card {
+            transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s ease-out;
+        }
+        .course-card:hover {
+            transform: scale(1.03); /* Subtle growth */
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.25); /* White back glow */
+        }
+
+        /* View Switching Logic */
+        .hidden-view {
+            display: none;
+        }
+        .active-view {
+            display: block;
+        }
+        
+        /* Pulse for the back button arrow */
+        .animate-pulse-slow {
+            animation: pulse-slow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse-slow {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
         }
     </style>
 </head>
 <body class="overflow-x-hidden">
 
-    <section class="min-h-screen flex flex-col items-center justify-center px-6 text-center bg-black">
-        <div data-aos="fade-up" data-aos-duration="1200" data-aos-easing="ease-out-quad">
-            <h2 class="text-zinc-500 text-sm md:text-base font-semibold tracking-[0.2em] uppercase mb-6">The Standard</h2>
-            <h1 class="text-4xl md:text-7xl font-bold tracking-tight mb-16 max-w-4xl mx-auto">
-                Get your store from <br>
-                <span class="text-zinc-600">looking like this.</span>
-            </h1>
-            <div class="inline-block p-1 rounded-[3rem] bg-zinc-900/50 border border-white/5">
-                <img src="IMG_5966.webp" alt="Before" class="w-full max-w-[320px] md:max-w-sm rounded-[2.5rem] iphone-shadow">
-            </div>
-        </div>
-    </section>
-
-    <section class="min-h-screen flex flex-col items-center justify-center px-6 text-center bg-black">
-        <div data-aos="fade-up" data-aos-duration="1200" data-aos-delay="100">
-            <h1 class="text-4xl md:text-7xl font-bold tracking-tight mb-16">
-                To <span class="bg-gradient-to-b from-white to-zinc-500 bg-clip-text text-transparent">this.</span>
-            </h1>
-            <div class="success-glow inline-block p-1 rounded-[3rem] bg-zinc-800/30 border border-white/10">
-                <img src="IMG_5963.webp" alt="After" class="w-full max-w-[320px] md:max-w-sm rounded-[2.5rem] shadow-2xl">
-            </div>
-        </div>
-    </section>
-
-    <section class="min-h-[80vh] flex flex-col items-center justify-center px-8 text-center bg-black">
-        <div data-aos="fade-up" data-aos-duration="1500">
-            <h2 class="text-3xl md:text-6xl font-semibold leading-tight max-w-5xl mx-auto text-zinc-400">
-                "In a world of noise, we don't just build stores; <br> 
-                <span class="text-white">we build legacies that demand to <span class="italic underline decoration-zinc-700">Be Seen.</span>"</span>
-            </h2>
-        </div>
-    </section>
-
-    <section class="h-screen flex flex-col items-center justify-center text-center bg-black">
-        <div data-aos="zoom-out" data-aos-duration="2000" class="opacity-20">
-            <h3 class="text-6xl md:text-[12rem] font-black tracking-tighter uppercase select-none">
-                Coming
-            </h3>
-            <h3 class="text-6xl md:text-[12rem] font-black tracking-tighter uppercase select-none -mt-10 md:-mt-20">
-                Soon
-            </h3>
-        </div>
+    <div id="landingView" class="active-view">
         
-        <div class="mt-12 h-12 w-[2px] bg-gradient-to-b from-white to-transparent rounded-full animate-bounce"></div>
-    </section>
+        <section class="min-h-screen flex flex-col items-center justify-center px-6 text-center bg-black">
+            <div data-aos="fade-up" data-aos-duration="1200" data-aos-easing="ease-out-quad">
+                <h2 class="text-zinc-500 text-sm md:text-base font-semibold tracking-[0.2em] uppercase mb-6">The Standard</h2>
+                <h1 class="text-4xl md:text-7xl font-bold tracking-tight mb-16 max-w-4xl mx-auto">
+                    Get your store from <br>
+                    <span class="text-zinc-600">looking like this.</span>
+                </h1>
+                <div class="inline-block p-1 rounded-[3rem] bg-zinc-900/50 border border-white/5">
+                    <img src="IMG_5966.webp" alt="Before" class="w-full max-w-[320px] md:max-w-sm rounded-[2.5rem] iphone-shadow">
+                </div>
+            </div>
+        </section>
+
+        <section class="min-h-screen flex flex-col items-center justify-center px-6 text-center bg-black">
+            <div data-aos="fade-up" data-aos-duration="1200" data-aos-delay="100">
+                <h1 class="text-4xl md:text-7xl font-bold tracking-tight mb-16">
+                    To <span class="bg-gradient-to-b from-white to-zinc-500 bg-clip-text text-transparent">this.</span>
+                </h1>
+                <div class="success-glow inline-block p-1 rounded-[3rem] bg-zinc-800/30 border border-white/10 relative">
+                    <div class="absolute -inset-4 bg-zinc-700/20 blur-3xl rounded-full opacity-60"></div>
+                    <img src="IMG_5963.webp" alt="After" class="relative w-full max-w-[320px] md:max-w-sm rounded-[2.5rem] shadow-2xl">
+                </div>
+            </div>
+        </section>
+
+        <section class="min-h-[80vh] flex flex-col items-center justify-center px-8 text-center bg-black">
+            <div data-aos="fade-up" data-aos-duration="1500">
+                <h2 class="text-3xl md:text-6xl font-semibold leading-tight max-w-5xl mx-auto text-zinc-400">
+                    "In a world of noise, we don't just build stores; <br> 
+                    <span class="text-white">we build legacies that demand to <span class="italic underline decoration-zinc-700">Be Seen.</span>"</span>
+                </h2>
+            </div>
+        </section>
+
+        <section class="h-[60vh] flex flex-col items-center justify-center text-center bg-black relative">
+            <div data-aos="fade-up" data-aos-duration="2000">
+                <p class="text-zinc-500 mb-6 font-medium">Ready to transition?</p>
+                <button onclick="showDirectoryView()" class="apple-btn-shadow group flex items-center gap-3 px-12 py-5 bg-white text-black text-xl font-semibold rounded-full transform transition hover:scale-105 active:scale-95">
+                    Courses
+                    <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
+                </button>
+            </div>
+        </section>
+    </div>
+
+    <div id="directoryView" class="hidden-view">
+        
+        <nav class="fixed top-0 left-0 w-full p-6 z-50">
+            <button onclick="hideDirectoryView()" class="group flex items-center gap-3 text-zinc-400 transition hover:text-white bg-black/50 backdrop-blur-md px-5 py-3 rounded-full border border-white/5">
+                <svg class="w-5 h-5 transition-transform group-hover:-translate-x-1 animate-pulse-slow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M11 17l-5-5m0 0l5-5m-5 5h12"></path></svg>
+                Back
+            </button>
+        </nav>
+
+        <section class="min-h-screen pt-32 pb-24 px-6 md:px-12 bg-black">
+            <div data-aos="fade-up" data-aos-duration="1000" class="text-center max-w-4xl mx-auto mb-20">
+                <h1 class="text-5xl md:text-8xl font-extrabold tracking-tighter mb-4 text-white">Academy.</h1>
+                <p class="text-xl md:text-2xl text-zinc-500 max-w-2xl mx-auto">Structured blueprints from zero to high performance.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+
+                <div data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000">
+                    <button onclick="showDetailView()" class="course-card block w-full text-left bg-zinc-900 border border-white/10 rounded-[2.5rem] overflow-hidden iphone-shadow h-full flex flex-col">
+                        <div class="h-48 md:h-56 overflow-hidden relative border-b border-white/5">
+                            <img src="photo-1622151834677-70f982c9adef.avif" alt="Part One" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        </div>
+                        <div class="p-8 flex-grow">
+                            <h3 class="text-2xl font-bold tracking-tight text-white mb-3">Part one | Starting <span class="text-zinc-500 mx-1">•</span> <span class="text-emerald-400 font-medium">free</span></h3>
+                            <p class="text-zinc-400 leading-relaxed text-sm">Lay the foundations of your legacy. Learn the core principles behind building a storefront that performs.</p>
+                        </div>
+                    </button>
+                </div>
+
+                <script>
+                    const delayStart = 200;
+                    for (let i = 0; i < 5; i++) {
+                        document.write(`
+                            <div data-aos="fade-up" data-aos-delay="${delayStart + (i * 100)}" data-aos-duration="1000">
+                                <div class="course-card bg-zinc-950 border border-white/5 rounded-[2.5rem] overflow-hidden opacity-60 h-full flex flex-col">
+                                    <div class="h-48 md:h-56 overflow-hidden relative border-b border-white/5 bg-zinc-900">
+                                        <div class="absolute inset-0 flex items-center justify-center">
+                                            <span class="text-6xl text-zinc-700">🔒</span>
+                                        </div>
+                                    </div>
+                                    <div class="p-8 flex-grow">
+                                        <h3 class="text-2xl font-bold tracking-tight text-white mb-3">Coming soon <span class="text-zinc-600 mx-1">•</span> <span class="text-zinc-500 font-medium">paid</span></h3>
+                                        <p class="text-zinc-600 leading-relaxed text-sm">Advanced modules and blueprints. Keep building your foundational structure.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        `);
+                    }
+                </script>
+
+            </div>
+        </section>
+    </div>
+
+    <div id="detailView" class="hidden-view">
+        
+        <nav class="fixed top-0 left-0 w-full p-6 z-50">
+            <button onclick="hideDetailView()" class="group flex items-center gap-3 text-zinc-400 transition hover:text-white bg-black/50 backdrop-blur-md px-5 py-3 rounded-full border border-white/5">
+                <svg class="w-5 h-5 transition-transform group-hover:-translate-x-1 animate-pulse-slow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M11 17l-5-5m0 0l5-5m-5 5h12"></path></svg>
+                Academy
+            </button>
+        </nav>
+
+        <article class="min-h-screen pt-40 pb-24 px-6 bg-black">
+            <div data-aos="fade-up" data-aos-duration="1200" class="max-w-3xl mx-auto">
+                <header class="mb-16 border-b border-white/10 pb-16 text-center">
+                    <h1 class="text-5xl md:text-7xl font-extrabold tracking-tighter text-white mb-6 leading-tight">Starting Ecom: The Unfiltered Blueprint.</h1>
+                    <p class="text-xl text-zinc-400 max-w-xl mx-auto">Part One of your journey to Be Seen.</p>
+                </header>
+                
+                <div class="prose prose-invert prose-zinc prose-lg mx-auto leading-relaxed space-y-8 text-zinc-300">
+                    <p>Starting an e-commerce business is often romanticized as easy—a few clicks to a Shopify store and the money rolls in. The reality is that starting ecom is not about the technology; it's about foundation. Success isn't found in a trend, but in identifying a core market need and solving it better than anyone else. Your first phase is about research, not revenue. It requires a relentless desire to understand who your customer is, what pains them, and why they would choose your brand when they have ten thousand other options. Laying this groundwork is meticulous work, and skiping it ensures you’ll be 'unseen' by the algorithm.</p>
+                    
+                    <p>This path requires extraordinary patience. The metrics you see posted online are often the culmination of months, sometimes years, of unseen failure. You must fall in love with the process and the data, not just the potential payout. Testing your product, optimizing your site, and refining your messaging takes time, and you will likely see no return on your initial efforts for weeks or months. True operators manage their expectations as tightly as they manage their margins. If you judge your long-term potential by your short-term results, you will quit long before your 'After' moment arrives. Patience is the price of admission for longevity.</p>
+                    
+                    <p>The marketplace demands hospitality in every interaction. In digital commerce, hospitality isn't just about good customer service; it's about an integrated philosophy. From the speed of your site to the language of your emails, every detail of your user experience is an opportunity to express hospitality. Your brand must convey that you have considered the user’s needs before they even knew they had them. This builds an invisible layer of trust that modern consumers demand before they will transact with a new entity. Without this mindset, your store is merely a digital storefront; with it, you are building a destination customers remember.</p>
+                    
+                    <p>Finally, your mental state is the definitive variable. The difference between the 'Standard' and the 'Legacy' store often boils down to mindset. You are building in a high-pressure, rapidly changing, data-driven environment. Developing a resilient mental state is critical. The strongest operators are detached from short-term outcomes but fiercely committed to long-term goals. They treat failures as cheap data points, not personal reflections. They manage anxiety with structure and use discipline, not motivation, to bridge the gap between their before and their after. To build a store that demands to be seen, you must first do the work that remains invisible.</p>
+                </div>
+            </div>
+        </article>
+    </div>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
+        // Init animations
         AOS.init({
-            once: false,
-            mirror: true,
-            offset: 200 // Triggers animation slightly before the element is in view for a smoother feel
+            once: true,
+            offset: 150
         });
+
+        const landingView = document.getElementById('landingView');
+        const directoryView = document.getElementById('directoryView');
+        const detailView = document.getElementById('detailView');
+
+        // Functions to transition views and trigger animations
+        function showDirectoryView() {
+            landingView.classList.remove('active-view');
+            landingView.classList.add('hidden-view');
+            directoryView.classList.add('active-view');
+            directoryView.classList.remove('hidden-view');
+            
+            // Need a slight delay to trigger animations in the new view
+            setTimeout(() => {
+                AOS.refresh();
+                window.scrollTo(0, 0);
+            }, 50);
+        }
+
+        function hideDirectoryView() {
+            directoryView.classList.remove('active-view');
+            directoryView.classList.add('hidden-view');
+            landingView.classList.add('active-view');
+            landingView.classList.remove('hidden-view');
+            setTimeout(() => {
+                AOS.refresh();
+                // Find and scroll to the hook section to maintain context
+                const hookSection = document.getElementById('courses');
+                if(hookSection) { hookSection.scrollIntoView(); }
+            }, 50);
+        }
+
+        function showDetailView() {
+            directoryView.classList.remove('active-view');
+            directoryView.classList.add('hidden-view');
+            detailView.classList.add('active-view');
+            detailView.classList.remove('hidden-view');
+            setTimeout(() => {
+                AOS.refresh();
+                window.scrollTo(0, 0);
+            }, 50);
+        }
+
+        function hideDetailView() {
+            detailView.classList.remove('active-view');
+            detailView.classList.add('hidden-view');
+            directoryView.classList.add('active-view');
+            directoryView.classList.remove('hidden-view');
+            setTimeout(() => {
+                AOS.refresh();
+                window.scrollTo(0, 0); // Scroll to the grid
+            }, 50);
+        }
     </script>
 </body>
 </html>
