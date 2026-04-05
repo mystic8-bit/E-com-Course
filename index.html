@@ -11,61 +11,43 @@
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
-        
-        body { 
-            font-family: 'Inter', sans-serif; 
-            background-color: #000; 
-            color: #fff; 
-            scroll-behavior: smooth; 
-            overflow-x: hidden; 
-        }
-
+        body { font-family: 'Inter', sans-serif; background-color: #000; color: #fff; scroll-behavior: smooth; overflow-x: hidden; margin: 0; }
         .iphone-shadow { box-shadow: 0 25px 50px -12px rgba(255, 255, 255, 0.1); }
+        .apple-btn-shadow { box-shadow: 0 4px 14px 0 rgba(255, 255, 255, 0.3); transition: all 0.3s ease-out; }
+        .course-card { transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s ease-out; }
+        .course-card:hover { transform: scale(1.03); box-shadow: 0 0 40px rgba(255, 255, 255, 0.2); }
         
-        .apple-btn-shadow { 
-            box-shadow: 0 4px 14px 0 rgba(255, 255, 255, 0.3); 
-            transition: all 0.3s ease-out; 
-        }
-
-        .course-card { 
-            transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s ease-out; 
-        }
-
-        .course-card:hover { 
-            transform: scale(1.03); 
-            box-shadow: 0 0 40px rgba(255, 255, 255, 0.2); 
-        }
-
-        /* View Management */
+        /* View States */
         .hidden-view { display: none !important; }
         .active-view { display: block !important; }
 
-        .glass { 
-            background: rgba(255, 255, 255, 0.05); 
-            backdrop-filter: blur(20px); 
-            border: 1px solid rgba(255, 255, 255, 0.1); 
-        }
-
-        input::placeholder { color: #52525b; }
+        .glass { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        
+        /* Ensure landing is visible on start */
+        #landingView { display: block; }
     </style>
 
     <script>
+        // HOISTED FUNCTIONS (Available immediately)
         function toggleAuthModal() {
             const modal = document.getElementById('authModal');
-            modal.classList.toggle('hidden-view');
+            if (modal.classList.contains('hidden-view')) {
+                modal.classList.remove('hidden-view');
+            } else {
+                modal.classList.add('hidden-view');
+            }
         }
 
         function switchView(id) {
             const views = ['landingView', 'directoryView', 'detailOne', 'detailTwo'];
             views.forEach(v => {
-                document.getElementById(v).classList.add('hidden-view');
-                document.getElementById(v).classList.remove('active-view');
+                const el = document.getElementById(v);
+                if (el) el.classList.add('hidden-view');
             });
             const active = document.getElementById(id);
-            active.classList.remove('hidden-view');
-            active.classList.add('active-view');
+            if (active) active.classList.remove('hidden-view');
             window.scrollTo(0,0);
-            setTimeout(() => { AOS.refresh(); }, 100);
+            if(window.AOS) window.AOS.refresh();
         }
     </script>
 </head>
@@ -73,48 +55,47 @@
 
     <div id="authModal" class="fixed inset-0 z-[999] flex items-center justify-center p-6 hidden-view">
         <div class="absolute inset-0 bg-black/90 backdrop-blur-sm" onclick="toggleAuthModal()"></div>
-        <div class="relative glass w-full max-w-md rounded-[2.5rem] p-10 text-center iphone-shadow border border-white/20">
-            <h2 id="authTitle" class="text-3xl font-bold tracking-tight mb-2 text-white">Join the Academy</h2>
-            <p id="authDesc" class="text-zinc-500 mb-8">Sign up to track your progress.</p>
+        <div class="relative glass w-full max-w-md rounded-[2.5rem] p-10 text-center iphone-shadow">
+            <h2 id="authTitle" class="text-3xl font-bold tracking-tight mb-2">Join the Academy</h2>
+            <p id="authDesc" class="text-zinc-500 mb-8 text-sm">Sign up to track your progress.</p>
             
             <div class="space-y-4">
-                <input type="email" id="authEmail" placeholder="Email Address" class="w-full bg-zinc-900/50 border border-white/10 rounded-2xl px-5 py-4 focus:outline-none focus:border-white transition text-white">
-                <input type="password" id="authPassword" placeholder="Password" class="w-full bg-zinc-900/50 border border-white/10 rounded-2xl px-5 py-4 focus:outline-none focus:border-white transition text-white">
-                <button onclick="handleAuth()" id="authBtn" class="w-full py-4 bg-white text-black font-bold rounded-2xl hover:bg-zinc-200 transition active:scale-95">Sign Up</button>
+                <input type="email" id="authEmail" placeholder="Email Address" class="w-full bg-zinc-900 border border-white/10 rounded-2xl px-5 py-4 focus:outline-none focus:border-white transition text-white">
+                <input type="password" id="authPassword" placeholder="Password" class="w-full bg-zinc-900 border border-white/10 rounded-2xl px-5 py-4 focus:outline-none focus:border-white transition text-white">
+                <button onclick="handleAuth()" id="authBtn" class="w-full py-4 bg-white text-black font-bold rounded-2xl hover:bg-zinc-200 transition">Sign Up</button>
             </div>
             
             <p class="mt-6 text-sm text-zinc-500">
                 <span id="authToggleText">Already have an account?</span> 
-                <button onclick="toggleAuthMode()" class="text-white underline font-semibold ml-1" id="authToggleBtn">Log In</button>
+                <button onclick="toggleAuthMode()" class="text-white underline ml-1" id="authToggleBtn">Log In</button>
             </p>
         </div>
     </div>
 
-    <div id="landingView" class="active-view">
+    <div id="landingView">
         <nav class="fixed top-0 w-full flex justify-between items-center p-8 z-50">
             <div class="text-xl font-black tracking-tighter uppercase italic">Be Seen</div>
-            <button id="navAuthBtn" onclick="toggleAuthModal()" class="glass px-6 py-2 rounded-full text-sm font-semibold hover:bg-white/10 transition">Log In</button>
+            <button onclick="toggleAuthModal()" class="glass px-6 py-2 rounded-full text-sm font-semibold hover:bg-white/10 transition">Log In</button>
         </nav>
 
-        <section class="min-h-screen flex flex-col items-center justify-center px-6 text-center">
-            <div data-aos="fade-up" data-aos-duration="1200">
+        <section class="min-h-screen flex flex-col items-center justify-center px-6 text-center bg-black">
+            <div data-aos="fade-up" data-aos-duration="1000">
                 <h2 class="text-zinc-500 text-sm font-bold tracking-[0.3em] mb-6 uppercase">The Standard</h2>
                 <h1 class="text-4xl md:text-7xl font-extrabold tracking-tight mb-16">Get your store from <br><span class="text-zinc-600">looking like this.</span></h1>
-                <img src="image_bd909f.jpg" class="w-full max-w-sm mx-auto rounded-[2.5rem] iphone-shadow border border-white/5">
+                <img src="image_bd909f.jpg" class="w-full max-w-sm mx-auto rounded-[2.5rem] iphone-shadow">
             </div>
         </section>
 
-        <section class="min-h-screen flex flex-col items-center justify-center px-6 text-center">
-            <div data-aos="fade-up" data-aos-duration="1200">
+        <section class="min-h-screen flex flex-col items-center justify-center px-6 text-center bg-black">
+            <div data-aos="fade-up" data-aos-duration="1000">
                 <h1 class="text-4xl md:text-7xl font-extrabold tracking-tight mb-16">To <span class="bg-gradient-to-b from-white to-zinc-500 bg-clip-text text-transparent">this.</span></h1>
                 <img src="image_bd90a4.jpg" class="w-full max-w-sm mx-auto rounded-[2.5rem] iphone-shadow border border-white/10">
             </div>
         </section>
 
-        <section id="courses" class="h-[70vh] flex flex-col items-center justify-center text-center">
-            <div data-aos="fade-up" data-aos-duration="1000">
-                <h2 class="text-2xl text-zinc-500 mb-10 italic">"Legacies are built in the dark."</h2>
-                <button onclick="switchView('directoryView')" class="apple-btn-shadow px-16 py-6 bg-white text-black text-xl font-extrabold rounded-full hover:scale-105 transition transform active:scale-95">
+        <section class="h-[70vh] flex flex-col items-center justify-center text-center bg-black">
+            <div data-aos="fade-up">
+                <button onclick="switchView('directoryView')" class="apple-btn-shadow px-16 py-6 bg-white text-black text-xl font-extrabold rounded-full hover:scale-105 transition transform">
                     Enter Academy
                 </button>
             </div>
@@ -122,18 +103,15 @@
     </div>
 
     <div id="directoryView" class="hidden-view">
-        <nav class="fixed top-0 left-0 p-8 z-50">
-            <button onclick="switchView('landingView')" class="glass px-6 py-2 rounded-full text-sm font-bold">← Back</button>
-        </nav>
-
+        <nav class="fixed top-0 left-0 p-8 z-50"><button onclick="switchView('landingView')" class="glass px-6 py-2 rounded-full text-sm">← Back</button></nav>
         <section class="pt-32 pb-24 px-6 max-w-7xl mx-auto">
-            <h1 class="text-6xl md:text-9xl font-black tracking-tighter mb-20 text-center" data-aos="zoom-out">Academy.</h1>
+            <h1 class="text-6xl md:text-9xl font-black tracking-tighter mb-20 text-center">Academy.</h1>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <button onclick="switchView('detailOne')" class="course-card block bg-zinc-900/50 rounded-[2.5rem] overflow-hidden border border-white/5 text-left" data-aos="fade-up">
+                <button onclick="switchView('detailOne')" class="course-card bg-zinc-900/50 rounded-[2.5rem] overflow-hidden border border-white/5 text-left">
                     <img src="image_47a242.jpg" class="h-56 w-full object-cover">
                     <div class="p-8"><h3 class="text-2xl font-bold">Part one | Starting • <span class="text-emerald-400">free</span></h3></div>
                 </button>
-                <button onclick="checkPartTwoAccess()" class="course-card block bg-zinc-900/50 rounded-[2.5rem] overflow-hidden border border-white/5 text-left" data-aos="fade-up" data-aos-delay="100">
+                <button onclick="checkPartTwoAccess()" class="course-card bg-zinc-900/50 rounded-[2.5rem] overflow-hidden border border-white/5 text-left">
                     <img src="image_480872.jpg" class="h-56 w-full object-cover">
                     <div class="p-8"><h3 class="text-2xl font-bold">Part Two | Basics • <span class="text-blue-400">paid</span></h3></div>
                 </button>
@@ -141,108 +119,70 @@
         </section>
     </div>
 
-    <div id="detailOne" class="hidden-view">
-        <nav class="fixed top-0 left-0 p-8 z-50"><button onclick="switchView('directoryView')" class="glass px-6 py-2 rounded-full text-sm">← Academy</button></nav>
-        <article class="pt-40 pb-24 px-6 max-w-3xl mx-auto space-y-10 text-zinc-300 text-lg leading-relaxed">
-            <h1 class="text-5xl md:text-7xl font-black text-white text-center mb-16 uppercase italic tracking-tighter">Starting Ecom.</h1>
-            <p>Starting an e-commerce business is often romanticized as easy—a few clicks to a Shopify store and the money rolls in. The reality is that starting ecom is not about the technology; it's about foundation. Success isn't found in a trend, but in identifying a core market need and solving it better than anyone else.</p>
-            <p>This path requires extraordinary patience. The metrics you see posted online are often the culmination of months, sometimes years, of unseen failure. You must fall in love with the process and the data, not just the potential payout.</p>
-            <p>The marketplace demands hospitality in every interaction. In digital commerce, hospitality isn't just about good customer service; it's about an integrated philosophy. Every detail builds trust.</p>
-            <p>Finally, your mental state is the definitive variable. Developing a resilient mental state is critical. To build a store that demands to be seen, you must first do the work that remains invisible.</p>
-        </article>
-    </div>
-
+    <div id="detailOne" class="hidden-view"><article class="pt-40 px-6 max-w-3xl mx-auto text-center"><h1 class="text-5xl font-black mb-12">Starting Ecom.</h1><p class="text-zinc-400">Foundation is everything. Research over revenue.</p><button onclick="switchView('directoryView')" class="mt-12 text-white underline">Back to Academy</button></article></div>
+    
     <div id="detailTwo" class="hidden-view">
-        <nav class="fixed top-0 left-0 p-8 z-50"><button onclick="switchView('directoryView')" class="glass px-6 py-2 rounded-full text-sm">← Academy</button></nav>
-        <article class="pt-40 pb-24 px-6 relative">
+        <article class="pt-40 px-6 relative">
             <div id="lockOverlay" class="fixed inset-0 pt-40 bg-black/95 z-40 flex flex-col items-center justify-center text-center p-6 backdrop-blur-xl">
-                <span class="text-8xl mb-8 block">🔒</span>
-                <h2 class="text-4xl font-black mb-4 text-white uppercase tracking-tighter">Unlock Part Two.</h2>
-                <p class="text-zinc-500 mb-10 max-w-sm">This module covers the secret architecture of promoting and social media marketing.</p>
-                
-                <a href="https://buy.stripe.com/00w3co3lYaCE84hcbb5gc00" target="_blank" class="apple-btn-shadow px-14 py-6 bg-white text-black font-extrabold rounded-full text-xl hover:scale-105 transition">
-                    Buy Now
-                </a>
-            </div>
-
-            <div id="lockedContent" class="max-w-3xl mx-auto opacity-10 blur-md select-none pointer-events-none">
-                <h1 class="text-5xl md:text-7xl font-black text-white text-center mb-16 uppercase italic">Understanding Basics.</h1>
-                <div class="space-y-8 text-zinc-300 text-lg">
-                    <p>Once your storefront is built, the real architecture begins. Building a storefront without a promotional strategy is like printing money that is not legal tender.</p>
-                    <p>Social media marketing is the central axis of modern demand. Platforms like TikTok, Instagram, and Pinterest are the engines of aspiration.</p>
-                    <p>Your website is the engine room. Every millisecond of load time is hospitality. Platforms like Shopify provide the structural integrity, but your customization is your signature.</p>
-                </div>
+                <span class="text-8xl mb-8">🔒</span>
+                <h2 class="text-4xl font-black mb-10">Unlock Part Two.</h2>
+                <a href="https://buy.stripe.com/00w3co3lYaCE84hcbb5gc00" target="_blank" class="px-14 py-6 bg-white text-black font-extrabold rounded-full text-xl">Buy Now</a>
+                <button onclick="switchView('directoryView')" class="mt-8 text-zinc-500 text-sm">Return to Academy</button>
             </div>
         </article>
     </div>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // 1. SUPABASE INITIALIZATION
+        // Corrected Supabase Init
         const supabaseUrl = 'https://wosvmiqeumkmijqydqlu.supabase.co';
         const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indvc3ZtaXFldW1rbWlqcXlkcWx1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU0MDU4MjEsImV4cCI6MjA5MDk4MTgyMX0.32GFGZ7tgxZlJjqS2G3aSNAHuxk4QuHdcjlFrCY0I-U';
-        const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+        const sb = window.supabase.createClient(supabaseUrl, supabaseKey);
 
         let isLoginMode = false;
 
-        // 2. AUTH FUNCTIONS
         function toggleAuthMode() {
             isLoginMode = !isLoginMode;
             document.getElementById('authTitle').innerText = isLoginMode ? 'Welcome Back' : 'Join the Academy';
             document.getElementById('authBtn').innerText = isLoginMode ? 'Log In' : 'Sign Up';
             document.getElementById('authToggleBtn').innerText = isLoginMode ? 'Sign Up' : 'Log In';
-            document.getElementById('authToggleText').innerText = isLoginMode ? "Don't have an account?" : "Already have an account?";
         }
 
         async function handleAuth() {
             const email = document.getElementById('authEmail').value;
             const password = document.getElementById('authPassword').value;
-
-            if (!email || !password) return alert("Please fill in all fields.");
+            if(!email || !password) return alert("Fill in fields.");
 
             const { data, error } = isLoginMode 
-                ? await supabase.auth.signInWithPassword({ email, password })
-                : await supabase.auth.signUp({ email, password });
+                ? await sb.auth.signInWithPassword({ email, password })
+                : await sb.auth.signUp({ email, password });
 
             if (error) alert(error.message);
             else {
-                if (isLoginMode) {
-                    toggleAuthModal();
-                    updateAuthUI();
-                } else {
-                    alert("Success! Please check your email to confirm your account.");
-                    toggleAuthModal();
-                }
+                alert(isLoginMode ? "Logged In" : "Check email for confirmation link!");
+                toggleAuthModal();
+                updateAuthUI();
             }
         }
 
         async function updateAuthUI() {
-            const { data: { user } } = await supabase.auth.getUser();
+            const { data: { user } } = await sb.auth.getUser();
             if (user) {
-                document.getElementById('navAuthBtn').innerText = 'Account';
-                // Check payment status from profiles table
-                let { data: profile } = await supabase.from('profiles').select('has_paid').eq('id', user.id).single();
+                let { data: profile } = await sb.from('profiles').select('has_paid').eq('id', user.id).single();
                 if (profile?.has_paid) {
-                    const lock = document.getElementById('lockOverlay');
-                    const content = document.getElementById('lockedContent');
-                    if(lock) lock.style.display = 'none';
-                    if(content) content.classList.remove('opacity-10', 'blur-md', 'select-none', 'pointer-events-none');
+                    document.getElementById('lockOverlay').style.display = 'none';
                 }
             }
         }
 
         async function checkPartTwoAccess() {
-            const { data: { user } } = await supabase.auth.getUser();
-            if (!user) { 
-                toggleAuthModal(); 
-                return; 
-            }
+            const { data: { user } } = await sb.auth.getUser();
+            if (!user) { toggleAuthModal(); return; }
             switchView('detailTwo');
             updateAuthUI();
         }
 
-        // 3. INITIALIZE
-        window.onload = () => {
+        window.onload = () => { 
             AOS.init({ duration: 1000, once: true });
             updateAuthUI();
         };
