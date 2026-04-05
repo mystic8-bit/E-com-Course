@@ -17,12 +17,10 @@
             overflow-x: hidden;
         }
 
-        /* Apple Hardware Shadows */
         .iphone-shadow {
             box-shadow: 0 25px 50px -12px rgba(255, 255, 255, 0.1);
         }
 
-        /* Standard CTA Button Glow (Apple Look) */
         .apple-btn-shadow {
             box-shadow: 0 4px 14px 0 rgba(255, 255, 255, 0.3);
             transition: all 0.3s ease-out;
@@ -31,24 +29,17 @@
             box-shadow: 0 6px 20px rgba(255, 255, 255, 0.5);
         }
 
-        /* Course Card Hover FX: Grow + White Glow */
         .course-card {
             transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s ease-out;
         }
         .course-card:hover {
-            transform: scale(1.03); /* Subtle growth */
-            box-shadow: 0 0 40px rgba(255, 255, 255, 0.25); /* White back glow */
+            transform: scale(1.03);
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.25);
         }
 
-        /* View Switching Logic */
-        .hidden-view {
-            display: none;
-        }
-        .active-view {
-            display: block;
-        }
-
-        /* Pulse for the back button arrow */
+        .hidden-view { display: none; }
+        .active-view { display: block; }
+        
         .animate-pulse-slow {
             animation: pulse-slow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
         }
@@ -58,13 +49,12 @@
         }
     </style>
 </head>
-<body class="overflow-x-hidden">
+<body>
 
     <div id="landingView" class="active-view">
-        
         <section class="min-h-screen flex flex-col items-center justify-center px-6 text-center bg-black">
-            <div data-aos="fade-up" data-aos-duration="1200" data-aos-easing="ease-out-quad">
-                <h2 class="text-zinc-500 text-sm md:text-base font-semibold tracking-[0.2em] uppercase mb-6">The Standard</h2>
+            <div data-aos="fade-up" data-aos-duration="1200">
+                <h2 class="text-zinc-500 text-sm font-semibold tracking-[0.2em] uppercase mb-6">The Standard</h2>
                 <h1 class="text-4xl md:text-7xl font-bold tracking-tight mb-16 max-w-4xl mx-auto">
                     Get your store from <br>
                     <span class="text-zinc-600">looking like this.</span>
@@ -75,8 +65,8 @@
             </div>
         </section>
 
-        <section class="min-h-screen flex flex-col items-center justify-center px-6 text-center bg-black relative">
-            <div data-aos="fade-up" data-aos-duration="1200" data-aos-delay="100">
+        <section class="min-h-screen flex flex-col items-center justify-center px-6 text-center bg-black">
+            <div data-aos="fade-up" data-aos-duration="1200">
                 <h1 class="text-4xl md:text-7xl font-bold tracking-tight mb-16">
                     To <span class="bg-gradient-to-b from-white to-zinc-500 bg-clip-text text-transparent">this.</span>
                 </h1>
@@ -96,10 +86,10 @@
             </div>
         </section>
 
-        <section id="courses" class="h-[60vh] flex flex-col items-center justify-center text-center bg-black relative">
+        <section id="courses" class="h-[60vh] flex flex-col items-center justify-center text-center bg-black">
             <div data-aos="fade-up" data-aos-duration="2000">
                 <p class="text-zinc-500 mb-6 font-medium">Ready to transition?</p>
-                <button onclick="showDirectoryView()" class="apple-btn-shadow group flex items-center gap-3 px-12 py-5 bg-white text-black text-xl font-semibold rounded-full transform transition hover:scale-105 active:scale-95">
+                <button onclick="showDirectoryView()" class="apple-btn-shadow group flex items-center gap-3 px-12 py-5 bg-white text-black text-xl font-semibold rounded-full transform transition hover:scale-105">
                     Courses
                     <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
                 </button>
@@ -108,7 +98,6 @@
     </div>
 
     <div id="directoryView" class="hidden-view">
-        
         <nav class="fixed top-0 left-0 w-full p-6 z-50">
             <button onclick="hideDirectoryView()" class="group flex items-center gap-3 text-zinc-400 transition hover:text-white bg-black/50 backdrop-blur-md px-5 py-3 rounded-full border border-white/5">
                 <svg class="w-5 h-5 transition-transform group-hover:-translate-x-1 animate-pulse-slow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M11 17l-5-5m0 0l5-5m-5 5h12"></path></svg>
@@ -117,130 +106,79 @@
         </nav>
 
         <section class="min-h-screen pt-32 pb-24 px-6 md:px-12 bg-black">
-            <div data-aos="fade-up" data-aos-duration="1000" class="text-center max-w-4xl mx-auto mb-20">
-                <h1 class="text-5xl md:text-8xl font-extrabold tracking-tighter mb-4 text-white">Academy.</h1>
-                <p class="text-xl md:text-2xl text-zinc-500 max-w-2xl mx-auto">Structured blueprints from zero to high performance.</p>
+            <div class="text-center max-w-4xl mx-auto mb-20" data-aos="fade-up">
+                <h1 class="text-5xl md:text-8xl font-extrabold tracking-tighter mb-4">Academy.</h1>
+                <p class="text-xl text-zinc-500">Structured blueprints from zero to high performance.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+                <button onclick="showDetailViewOne()" class="course-card block w-full text-left bg-zinc-900 border border-white/10 rounded-[2.5rem] overflow-hidden flex flex-col" data-aos="fade-up">
+                    <div class="h-48 md:h-56 overflow-hidden border-b border-white/5">
+                        <img src="photo-1622151834677-70f982c9adef.avif" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-2xl font-bold mb-3">Part one | Starting • <span class="text-emerald-400">free</span></h3>
+                        <p class="text-zinc-400 text-sm">Lay the foundations of your legacy. Learn core principles.</p>
+                    </div>
+                </button>
 
-                <div data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000">
-                    <button onclick="showDetailViewOne()" class="course-card block w-full text-left bg-zinc-900 border border-white/10 rounded-[2.5rem] overflow-hidden iphone-shadow h-full flex flex-col">
-                        <div class="h-48 md:h-56 overflow-hidden relative border-b border-white/5">
-                            <img src="phooto-1622151834677-70f982c9adef.avif" alt="Part One" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                        </div>
-                        <div class="p-8 flex-grow">
-                            <h3 class="text-2xl font-bold tracking-tight text-white mb-3">Part one | Starting <span class="text-zinc-500 mx-1">•</span> <span class="text-emerald-400 font-medium">free</span></h3>
-                            <p class="text-zinc-400 leading-relaxed text-sm">Lay the foundations of your legacy. Learn the core principles behind building a storefront that performs.</p>
-                        </div>
-                    </button>
-                </div>
-
-                <div data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000">
-                    <button onclick="showDetailViewTwo()" class="course-card block w-full text-left bg-zinc-900 border border-white/10 rounded-[2.5rem] overflow-hidden iphone-shadow h-full flex flex-col">
-                        <div class="h-48 md:h-56 overflow-hidden relative border-b border-white/5">
-                            <img src="fulfillment.jpg" alt="Part Two" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                        </div>
-                        <div class="p-8 flex-grow">
-                            <h3 class="text-2xl font-bold tracking-tight text-white mb-3">Part Two | Understanding <span class="text-zinc-500 mx-1">•</span> <span class="text-blue-400 font-medium">paid</span></h3>
-                            <p class="text-zinc-400 leading-relaxed text-sm">Deep-dive into promoting, platforms, and the structural tools you need to build your legacy.</p>
-                        </div>
-                    </button>
-                </div>
+                <button onclick="showDetailViewTwo()" class="course-card block w-full text-left bg-zinc-900 border border-white/10 rounded-[2.5rem] overflow-hidden flex flex-col" data-aos="fade-up" data-aos-delay="100">
+                    <div class="h-48 md:h-56 overflow-hidden border-b border-white/5">
+                        <img src="fulfillment.jpg" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-2xl font-bold mb-3">Part Two | Basics • <span class="text-blue-400">paid</span></h3>
+                        <p class="text-zinc-400 text-sm">Promoting, marketing, and the tools you need to scale.</p>
+                    </div>
+                </button>
 
                 <script>
-                    const delayStart = 300;
-                    for (let i = 0; i < 4; i++) {
-                        document.write(`
-                            <div data-aos="fade-up" data-aos-delay="${delayStart + (i * 100)}" data-aos-duration="1000">
-                                <div class="course-card bg-zinc-950 border border-white/5 rounded-[2.5rem] overflow-hidden opacity-60 h-full flex flex-col">
-                                    <div class="h-48 md:h-56 overflow-hidden relative border-b border-white/5 bg-zinc-900">
-                                        <div class="absolute inset-0 flex items-center justify-center">
-                                            <span class="text-6xl text-zinc-700">🔒</span>
-                                        </div>
-                                    </div>
-                                    <div class="p-8 flex-grow">
-                                        <h3 class="text-2xl font-bold tracking-tight text-white mb-3">Coming soon <span class="text-zinc-600 mx-1">•</span> <span class="text-zinc-500 font-medium">paid</span></h3>
-                                        <p class="text-zinc-600 leading-relaxed text-sm">Advanced modules and blueprints. Keep building your foundational structure.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        `);
+                    for(let i=0; i<4; i++) {
+                        document.write(`<div class="course-card bg-zinc-950 border border-white/5 rounded-[2.5rem] overflow-hidden opacity-40 h-full flex flex-col"><div class="h-48 bg-zinc-900 flex items-center justify-center text-4xl">🔒</div><div class="p-8"><h3 class="text-2xl font-bold mb-3 text-zinc-500">Coming soon • paid</h3></div></div>`);
                     }
                 </script>
-
             </div>
         </section>
     </div>
 
     <div id="detailViewOne" class="hidden-view">
-        
         <nav class="fixed top-0 left-0 w-full p-6 z-50">
-            <button onclick="hideDetailViewOne()" class="group flex items-center gap-3 text-zinc-400 transition hover:text-white bg-black/50 backdrop-blur-md px-5 py-3 rounded-full border border-white/5">
-                <svg class="w-5 h-5 transition-transform group-hover:-translate-x-1 animate-pulse-slow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M11 17l-5-5m0 0l5-5m-5 5h12"></path></svg>
-                Academy
-            </button>
+            <button onclick="switchView('directory')" class="text-zinc-400 hover:text-white bg-black/50 backdrop-blur-md px-5 py-3 rounded-full border border-white/5">← Academy</button>
         </nav>
-
-        <article class="min-h-screen pt-40 pb-24 px-6 bg-black">
-            <div data-aos="fade-up" data-aos-duration="1200" class="max-w-3xl mx-auto">
-                <header class="mb-16 border-b border-white/10 pb-16 text-center">
-                    <h1 class="text-5xl md:text-7xl font-extrabold tracking-tighter text-white mb-6 leading-tight">Starting Ecom: The Unfiltered Blueprint.</h1>
-                    <p class="text-xl text-zinc-400 max-w-xl mx-auto">Part One of your journey to Be Seen.</p>
-                </header>
-                
-                <div class="prose prose-invert prose-zinc prose-lg mx-auto leading-relaxed space-y-8 text-zinc-300">
-                    <p>Starting an e-commerce business is often romanticized as easy—a few clicks to a Shopify store and the money rolls in. The reality is that starting ecom is not about the technology; it's about foundation. Success isn't found in a trend, but in identifying a core market need and solving it better than anyone else. Your first phase is about research, not revenue. It requires a relentless desire to understand who your customer is, what pains them, and why they would choose your brand when they have ten thousand other options. Laying this groundwork is meticulous work, and skiping it ensures you’ll be 'unseen' by the algorithm.</p>
-                    
-                    <p>This path requires extraordinary patience. The metrics you see posted online are often the culmination of months, sometimes years, of unseen failure. You must fall in love with the process and the data, not just the potential payout. Testing your product, optimizing your site, and refining your messaging takes time, and you will likely see no return on your initial efforts for weeks or months. True operators manage their expectations as tightly as they manage their margins. If you judge your long-term potential by your short-term results, you will quit long before your 'After' moment arrives. Patience is the price of admission for longevity.</p>
-                    
-                    <p>The marketplace demands hospitality in every interaction. In digital commerce, hospitality isn't just about good customer service; it's about an integrated philosophy. From the speed of your site to the language of your emails, every detail of your user experience is an opportunity to express hospitality. Your brand must convey that you have considered the user’s needs before they even knew they had them. This builds an invisible layer of trust that modern consumers demand before they will transact with a new entity. Without this mindset, your store is merely a digital storefront; with it, you are building a destination customers remember.</p>
-                    
-                    <p>Finally, your mental state is the definitive variable. The difference between the 'Standard' and the 'Legacy' store often boils down to mindset. You are building in a high-pressure, rapidly changing, data-driven environment. Developing a resilient mental state is critical. The strongest operators are detached from short-term outcomes but fiercely committed to long-term goals. They treat failures as cheap data points, not personal reflections. They manage anxiety with structure and use discipline, not motivation, to bridge the gap between their before and their after. To build a store that demands to be seen, you must first do the work that remains invisible.</p>
-                </div>
+        <article class="min-h-screen pt-40 pb-24 px-6 max-w-3xl mx-auto">
+            <h1 class="text-5xl md:text-7xl font-extrabold tracking-tighter mb-12 text-center">Starting Ecom.</h1>
+            <div class="space-y-8 text-zinc-300 text-lg leading-relaxed">
+                <p>Starting an e-commerce business is often romanticized as easy—a few clicks to a Shopify store and the money rolls in. The reality is that starting ecom is not about the technology; it's about foundation. Success isn't found in a trend, but in identifying a core market need and solving it better than anyone else. Your first phase is about research, not revenue.</p>
+                <p>This path requires extraordinary patience. The metrics you see posted online are often the culmination of months, sometimes years, of unseen failure. You must fall in love with the process and the data, not just the potential payout. Testing your product, optimizing your site, and refining your messaging takes time.</p>
+                <p>The marketplace demands hospitality in every interaction. In digital commerce, hospitality isn't just about good customer service; it's about an integrated philosophy. From the speed of your site to the language of your emails, every detail of your user experience is an opportunity to express hospitality.</p>
+                <p>Finally, your mental state is the definitive variable. The difference between the 'Standard' and the 'Legacy' store often boils down to mindset. You are building in a high-pressure, rapidly changing, data-driven environment. Developing a resilient mental state is critical. To build a store that demands to be seen, you must first do the work that remains invisible.</p>
             </div>
         </article>
     </div>
 
     <div id="detailViewTwo" class="hidden-view">
-        
         <nav class="fixed top-0 left-0 w-full p-6 z-50">
-            <button onclick="hideDetailViewTwo()" class="group flex items-center gap-3 text-zinc-400 transition hover:text-white bg-black/50 backdrop-blur-md px-5 py-3 rounded-full border border-white/5">
-                <svg class="w-5 h-5 transition-transform group-hover:-translate-x-1 animate-pulse-slow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M11 17l-5-5m0 0l5-5m-5 5h12"></path></svg>
-                Academy
-            </button>
+            <button onclick="switchView('directory')" class="text-zinc-400 hover:text-white bg-black/50 backdrop-blur-md px-5 py-3 rounded-full border border-white/5">← Academy</button>
         </nav>
-
-        <article class="min-h-screen pt-40 pb-24 px-6 bg-black relative">
-            
-            <div id="lockOverlay" class="fixed inset-0 pt-40 bg-black/95 backdrop-blur-sm z-40 flex flex-col items-center justify-center text-center p-6">
-                <div data-aos="zoom-in" data-aos-duration="1000" class="max-w-md">
-                    <span class="text-7xl mb-8 block">🔒</span>
-                    <h2 class="text-4xl font-extrabold tracking-tighter text-white mb-4">You have arrived.</h2>
-                    <p class="text-zinc-400 mb-10 leading-relaxed">Part Two requires authorization. This module covers promoting, platforms, and scaling logistics—your final blueprints to Be Seen.</p>
-                    <a href="#" target="_blank" class="apple-btn-shadow group flex items-center gap-3 px-12 py-5 bg-white text-black text-xl font-semibold rounded-full transform transition hover:scale-105 active:scale-95 mx-auto w-fit">
-                        Buy Now
-                        <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
-                    </a>
-                </div>
+        <article class="min-h-screen pt-40 pb-24 px-6 relative">
+            <div class="fixed inset-0 pt-40 bg-black/95 backdrop-blur-md z-40 flex flex-col items-center justify-center text-center p-6">
+                <span class="text-7xl mb-8 block">🔒</span>
+                <h2 class="text-4xl font-extrabold mb-4">Unlock Part Two.</h2>
+                <p class="text-zinc-400 mb-10 max-w-sm">Gain access to the structural blueprints of promoting and social media marketing.</p>
+                
+                <a href="https://buy.stripe.com/00w3co3lYaCE84hcbb5gc00" target="_blank" class="apple-btn-shadow px-12 py-5 bg-white text-black text-xl font-semibold rounded-full transition hover:scale-105">
+                    Buy Now
+                </a>
             </div>
 
-            <div data-aos="fade-up" data-aos-duration="1200" class="max-w-3xl mx-auto opacity-10">
-                <header class="mb-16 border-b border-white/10 pb-16 text-center">
-                    <h1 class="text-5xl md:text-7xl font-extrabold tracking-tighter text-white mb-6 leading-tight">Platform, Promotion, and the Power of Logistics.</h1>
-                    <p class="text-xl text-zinc-400 max-w-xl mx-auto">Part Two of your journey to Be Seen.</p>
-                </header>
-                
-                <div class="prose prose-invert prose-zinc prose-lg mx-auto leading-relaxed space-y-8 text-zinc-300">
-                    <p>Once your storefront is built, the real architecture begins. Building a storefront without a promotional strategy is like printing money that is not legal tender; it might look right, but it will transacted with nothing. Promotion is not just about noise; it is about visibility where your specific market is already gathering. In this module, we move past the 'Standard' metrics and begin building a system of demand generation that pulls customers toward your brand, demanding they Be Seen.</p>
-                    
-                    <p>Social media marketing is the central axis of modern demand. Platforms like TikTok, Instagram, and Pinterest are not merely applications; they are the modern, data-driven engines of human aspiration. However, the 'Standard' approach is to chase viral moments. A legacy approach focuses on attention-at-scale. We deep-dive into creating content that doesn't just entertain but authorizes. Your audience must see your brand not as a product to buy, but as a lifestyle they must participate in to validate their own identity.</p>
-                    
-                    <p>While social is the engine, your website is the engine room. Every millisecond of load time is hospitality, and every pixel is intentional. Platforms like Shopify or WooCommerce provide the structural integrity, but your customization must convey your brand's unique signature. In an environment where the consumer's default state is suspicion, your site's performance, design-density, and check-out frictionless build the trust that results in high-ticket transactions. Your site must not only load; it must declare legitimacy.</p>
-                    
-                    <p>To scale, you must understand the landscape of platforms. Choosing between native storefronts (Shopify), marketplaces (Amazon FBA), or third-party logistics (3PL) is a strategic, not tactical, decision. Marketplace integration offers massive exposure but compromises your ability to 'own' your customer data. Native storefronts demand higher promotional costs but offer maximum design and brand sovereignty. Your decision here defines your logistical legacy, determining how efficiently your brand can deliver on the promises made in your marketing.</p>
-                    
-                    <p>Ultimately, these elements must fuse into a logistical legacy. Logistics are not just fulfillment; they are the physical extension of your brand promise. FBA (Fulfillment by Amazon) offers unparalleled trust and speed, but 3PL (Third Party Logistics) allows you to customize every box, making the unboxing part of your brand hospitality. When your brand fuses efficient logistics with data-driven promotion, you cease to be a store trying to sell and become a brand that demands to be Seen. In this view, logistics are just marketing you can touch.</p>
+            <div class="max-w-3xl mx-auto opacity-10 select-none pointer-events-none">
+                <h1 class="text-5xl md:text-7xl font-extrabold mb-12 text-center">Understanding The Basics.</h1>
+                <div class="space-y-8 text-lg">
+                    <p>Once your storefront is built, the real architecture begins. Building a storefront without a promotional strategy is like printing money that is not legal tender. Promotion is not just about noise; it is about visibility where your specific market is already gathering.</p>
+                    <p>Social media marketing is the central axis of modern demand. Platforms like TikTok, Instagram, and Pinterest are not merely applications; they are the modern, data-driven engines of human aspiration. A legacy approach focuses on attention-at-scale.</p>
+                    <p>While social is the engine, your website is the engine room. Every millisecond of load time is hospitality, and every pixel is intentional. Platforms like Shopify provide the structural integrity, but your customization must convey your brand's unique signature.</p>
+                    <p>To scale, you must understand the landscape of platforms. Choosing between native storefronts (Shopify), marketplaces (Amazon FBA), or third-party logistics (3PL) is a strategic, not tactical, decision. Your decision here defines your logistical legacy.</p>
+                    <p>Ultimately, these elements must fuse into a logistical legacy. Logistics are not just fulfillment; they are the physical extension of your brand promise. When your brand fuses efficient logistics with data-driven promotion, you cease to be a store and become a brand.</p>
                 </div>
             </div>
         </article>
@@ -248,56 +186,22 @@
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // Init animations
-        AOS.init({
-            once: true,
-            offset: 150
-        });
-
-        const views = {
-            landing: document.getElementById('landingView'),
-            directory: document.getElementById('directoryView'),
-            detailOne: document.getElementById('detailViewOne'),
-            detailTwo: document.getElementById('detailViewTwo')
-        };
-
-        // Standard function to swap views and refresh animations
-        function switchView(activeViewId) {
-            Object.values(views).forEach(v => {
-                v.classList.remove('active-view');
-                v.classList.add('hidden-view');
-            });
-            views[activeViewId].classList.add('active-view');
-            views[activeViewId].classList.remove('hidden-view');
-            
-            // Need a slight delay to trigger animations in the new view
-            setTimeout(() => {
-                AOS.refresh();
-                window.scrollTo(0, 0);
-            }, 50);
+        AOS.init({ once: true });
+        
+        function switchView(id) {
+            document.querySelectorAll('#landingView, #directoryView, #detailViewOne, #detailViewTwo').forEach(v => v.classList.replace('active-view', 'hidden-view'));
+            document.getElementById(id).classList.replace('hidden-view', 'active-view');
+            window.scrollTo(0,0);
+            setTimeout(() => AOS.refresh(), 50);
         }
 
-        // --- SPECIFIC SWITCHERS ---
-        function showDirectoryView() { switchView('directory'); }
-        function showDetailViewOne() { switchView('detailOne'); }
-        function showDetailViewTwo() { switchView('detailTwo'); }
-
-        // --- BACK BUTTONS ---
+        function showDirectoryView() { switchView('directoryView'); }
+        function showDetailViewOne() { switchView('detailViewOne'); }
+        function showDetailViewTwo() { switchView('detailViewTwo'); }
         function hideDirectoryView() {
-            // Take them back to the last CTA section on landing
-            landingView.classList.add('active-view');
-            landingView.classList.remove('hidden-view');
-            directoryView.classList.add('hidden-view');
-            directoryView.classList.remove('active-view');
-            setTimeout(() => {
-                const ctaSection = document.getElementById('courses');
-                if(ctaSection) { ctaSection.scrollIntoView(); }
-            }, 50);
+            switchView('landingView');
+            setTimeout(() => document.getElementById('courses').scrollIntoView(), 100);
         }
-
-        function hideDetailViewOne() { switchView('directory'); }
-        function hideDetailViewTwo() { switchView('directory'); }
-
     </script>
 </body>
 </html>
