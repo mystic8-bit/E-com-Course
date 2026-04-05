@@ -49,7 +49,7 @@
             <div class="space-y-4 mt-8">
                 <input type="email" id="authEmail" placeholder="Email Address" class="w-full bg-zinc-900 border border-white/10 rounded-2xl px-5 py-4 text-white">
                 <input type="password" id="authPassword" placeholder="Password" class="w-full bg-zinc-900 border border-white/10 rounded-2xl px-5 py-4 text-white">
-                <button onclick="handleAuth()" id="authBtn" class="w-full py-4 bg-white text-black font-bold rounded-2xl">Sign Up</button>
+                <button onclick="handleAuth()" id="authBtn" class="w-full py-4 bg-white text-black font-bold rounded-2xl active:scale-95 transition">Sign Up</button>
             </div>
             <p class="mt-6 text-sm text-zinc-500">
                 <button onclick="toggleAuthMode()" class="text-white underline" id="authToggleBtn">Already have an account? Log In</button>
@@ -67,20 +67,20 @@
             <div data-aos="fade-up">
                 <h2 class="text-zinc-500 text-sm font-bold tracking-[0.3em] mb-6 uppercase">The Standard</h2>
                 <h1 class="text-4xl md:text-7xl font-extrabold tracking-tight mb-16">Get your store from <br><span class="text-zinc-600">looking like this.</span></h1>
-                <img src="IMG_5966.webp" loading="lazy" class="w-full max-w-sm mx-auto rounded-[2.5rem] iphone-shadow min-h-[400px]">
+                <img src="IMG_5966.webp" class="w-full max-w-sm mx-auto rounded-[2.5rem] iphone-shadow min-h-[400px]">
             </div>
         </section>
 
         <section class="min-h-screen flex flex-col items-center justify-center px-6 text-center">
             <div data-aos="fade-up">
                 <h1 class="text-4xl md:text-7xl font-extrabold tracking-tight mb-16">To <span class="bg-gradient-to-b from-white to-zinc-500 bg-clip-text text-transparent">this.</span></h1>
-                <img src="IMG_5963.webp" loading="lazy" class="w-full max-w-sm mx-auto rounded-[2.5rem] iphone-shadow border border-white/10 min-h-[400px]">
+                <img src="IMG_5963.webp" class="w-full max-w-sm mx-auto rounded-[2.5rem] iphone-shadow border border-white/10 min-h-[400px]">
             </div>
         </section>
 
         <section class="h-[60vh] flex flex-col items-center justify-center text-center">
             <div data-aos="fade-up">
-                <button onclick="switchView('directoryView')" class="apple-btn-shadow px-16 py-6 bg-white text-black text-xl font-extrabold rounded-full">Enter Academy</button>
+                <button onclick="switchView('directoryView')" class="apple-btn-shadow px-16 py-6 bg-white text-black text-xl font-extrabold rounded-full active:scale-95 transition">Enter Academy</button>
             </div>
         </section>
     </div>
@@ -91,26 +91,48 @@
             <h1 class="text-6xl md:text-9xl font-black tracking-tighter mb-20 text-center">Academy.</h1>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <button onclick="switchView('detailOne')" class="course-card bg-zinc-900/50 rounded-[2.5rem] overflow-hidden border border-white/5 text-left">
-                    <img src="photo-1622151834677-70f982c9adef.avif" loading="lazy" class="h-56 w-full">
+                    <img src="photo-1622151834677-70f982c9adef.avif" class="h-56 w-full">
                     <div class="p-8"><h3 class="text-2xl font-bold">Part one | Starting • <span class="text-emerald-400">free</span></h3></div>
                 </button>
                 <button onclick="checkPartTwoAccess()" class="course-card bg-zinc-900/50 rounded-[2.5rem] overflow-hidden border border-white/5 text-left">
-                    <img src="fulfillment.jpg" loading="lazy" class="h-56 w-full">
+                    <img src="fulfillment.jpg" class="h-56 w-full">
                     <div class="p-8"><h3 class="text-2xl font-bold">Part Two | Basics • <span class="text-blue-400">paid</span></h3></div>
                 </button>
             </div>
         </section>
     </div>
 
-    <div id="detailOne" class="hidden-view"><article class="pt-40 px-6 max-w-3xl mx-auto text-center"><h1 class="text-5xl font-black mb-12 uppercase italic">Starting Ecom.</h1><p class="text-zinc-400 text-lg">Foundation is everything. Research over revenue.</p><button onclick="switchView('directoryView')" class="mt-12 text-white underline">Back to Academy</button></article></div>
+    <div id="detailOne" class="hidden-view">
+        <nav class="fixed top-0 left-0 p-8 z-50"><button onclick="switchView('directoryView')" class="glass px-6 py-2 rounded-full text-sm">← Academy</button></nav>
+        <article class="pt-40 pb-24 px-6 max-w-3xl mx-auto space-y-8 text-zinc-300 text-lg leading-relaxed">
+            <h1 class="text-5xl font-black text-white text-center mb-16 uppercase italic tracking-tighter">Starting Ecom.</h1>
+            <p>Starting an e-commerce business is often romanticized as easy—a few clicks to a Shopify store and the money rolls in. The reality is that starting ecom is not about the technology; it's about foundation. Success isn't found in a trend, but in identifying a core market need and solving it better than anyone else. Your first phase is about research, not revenue. It requires a relentless desire to understand who your customer is, what pains them, and why they would choose your brand when they have ten thousand other options. Laying this groundwork is meticulous work, and skiping it ensures you’ll be 'unseen' by the algorithm.</p>
+            <p>This path requires extraordinary patience. The metrics you see posted online are often the culmination of months, sometimes years, of unseen failure. You must fall in love with the process and the data, not just the potential payout. Testing your product, optimizing your site, and refining your messaging takes time, and you will likely see no return on your initial efforts for weeks or months. True operators manage their expectations as tightly as they manage their margins. If you judge your long-term potential by your short-term results, you will quit long before your 'After' moment arrives. Patience is the price of admission for longevity.</p>
+            <p>The marketplace demands hospitality in every interaction. In digital commerce, hospitality isn't just about good customer service; it's about an integrated philosophy. From the speed of your site to the language of your emails, every detail of your user experience is an opportunity to express hospitality. Your brand must convey that you have considered the user’s needs before they even knew they had them. This builds an invisible layer of trust that modern consumers demand before they will transact with a new entity. Without this mindset, your store is merely a digital storefront; with it, you are building a destination customers remember.</p>
+            <p>Finally, your mental state is the definitive variable. The difference between the 'Standard' and the 'Legacy' store often boils down to mindset. You are building in a high-pressure, rapidly changing, data-driven environment. Developing a resilient mental state is critical. The strongest operators are detached from short-term outcomes but fiercely committed to long-term goals. They treat failures as cheap data points, not personal reflections. They manage anxiety with structure and use discipline, not motivation, to bridge the gap between their before and their after. To build a store that demands to be seen, you must first do the work that remains invisible.</p>
+            <button onclick="switchView('directoryView')" class="mt-12 block mx-auto text-white underline font-semibold">Back to Academy</button>
+        </article>
+    </div>
     
     <div id="detailTwo" class="hidden-view">
-        <article class="pt-40 px-6 relative">
+        <nav class="fixed top-0 left-0 p-8 z-50"><button onclick="switchView('directoryView')" class="glass px-6 py-2 rounded-full text-sm">← Academy</button></nav>
+        <article class="pt-40 pb-24 px-6 relative">
             <div id="lockOverlay" class="fixed inset-0 pt-40 bg-black/95 z-40 flex flex-col items-center justify-center text-center p-6 backdrop-blur-xl">
                 <span class="text-8xl mb-8">🔒</span>
                 <h2 class="text-4xl font-black mb-10 uppercase tracking-tighter">Unlock Part Two.</h2>
                 <a href="https://buy.stripe.com/00w3co3lYaCE84hcbb5gc00" target="_blank" class="px-14 py-6 bg-white text-black font-extrabold rounded-full text-xl">Buy Now</a>
-                <button onclick="switchView('directoryView')" class="mt-8 text-zinc-500 text-sm">Return to Academy</button>
+                <button onclick="switchView('directoryView')" class="mt-8 text-zinc-500 text-sm underline">Return to Academy</button>
+            </div>
+
+            <div id="lockedContent" class="max-w-3xl mx-auto opacity-10 blur-sm select-none pointer-events-none">
+                <h1 class="text-5xl font-black text-white text-center mb-16 uppercase italic">Understanding Basics.</h1>
+                <div class="space-y-8 text-zinc-300 text-lg leading-relaxed">
+                    <p>Once your storefront is built, the real architecture begins. Building a storefront without a promotional strategy is like printing money that is not legal tender; it might look right, but it will transacted with nothing. Promotion is not just about noise; it is about visibility where your specific market is already gathering. In this module, we move past the 'Standard' metrics and begin building a system of demand generation that pulls customers toward your brand, demanding they Be Seen.</p>
+                    <p>Social media marketing is the central axis of modern demand. Platforms like TikTok, Instagram, and Pinterest are not merely applications; they are the modern, data-driven engines of human aspiration. However, the 'Standard' approach is to chase viral moments. A legacy approach focuses on attention-at-scale. We deep-dive into creating content that doesn't just entertain but authorizes. Your audience must see your brand not as a product to buy, but as a lifestyle they must participate in to validate their own identity.</p>
+                    <p>While social is the engine, your website is the engine room. Every millisecond of load time is hospitality, and every pixel is intentional. Platforms like Shopify or WooCommerce provide the structural integrity, but your customization must convey your brand's unique signature. In an environment where the consumer's default state is suspicion, your site's performance, design-density, and check-out frictionless build the trust that results in high-ticket transactions. Your site must not only load; it must declare legitimacy.</p>
+                    <p>To scale, you must understand the landscape of platforms. Choosing between native storefronts (Shopify), marketplaces (Amazon FBA), or third-party logistics (3PL) is a strategic, not tactical, decision. Marketplace integration offers massive exposure but compromises your ability to 'own' your customer data. Native storefronts demand higher promotional costs but offer maximum design and brand sovereignty. Your decision here defines your logistical legacy, determining how efficiently your brand can deliver on the promises made in your marketing.</p>
+                    <p>Ultimately, these elements must fuse into a logistical legacy. Logistics are not just fulfillment; they are the physical extension of your brand promise. FBA (Fulfillment by Amazon) offers unparalleled trust and speed, but 3PL (Third Party Logistics) allows you to customize every box, making the unboxing part of your brand hospitality. When your brand fuses efficient logistics with data-driven promotion, you cease to be a store trying to sell and become a brand that demands to be Seen. In this view, logistics are just marketing you can touch.</p>
+                </div>
             </div>
         </article>
     </div>
@@ -130,13 +152,15 @@
         async function handleAuth() {
             const email = document.getElementById('authEmail').value;
             const password = document.getElementById('authPassword').value;
+            if(!email || !password) return alert("Please enter credentials.");
+
             const { data, error } = isLoginMode 
                 ? await sb.auth.signInWithPassword({ email, password })
                 : await sb.auth.signUp({ email, password });
 
             if (error) alert(error.message);
             else {
-                alert(isLoginMode ? "Logged In" : "Check email!");
+                alert(isLoginMode ? "Logged In" : "Check email for link!");
                 toggleAuthModal();
                 updateAuthUI();
             }
@@ -146,7 +170,12 @@
             const { data: { user } } = await sb.auth.getUser();
             if (user) {
                 let { data: profile } = await sb.from('profiles').select('has_paid').eq('id', user.id).single();
-                if (profile?.has_paid) document.getElementById('lockOverlay').style.display = 'none';
+                if (profile?.has_paid) {
+                    const overlay = document.getElementById('lockOverlay');
+                    const content = document.getElementById('lockedContent');
+                    if(overlay) overlay.style.display = 'none';
+                    if(content) content.classList.remove('opacity-10', 'blur-sm', 'select-none', 'pointer-events-none');
+                }
             }
         }
 
